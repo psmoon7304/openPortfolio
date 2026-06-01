@@ -1,0 +1,2052 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>박성문 · Portfolio</title>
+<meta name="description" content="박성문 포트폴리오">
+<meta property="og:title" content="박성문 · Portfolio">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* ===== original deck design CSS ===== */
+
+  :root {
+    /* Color */
+    --ink:        #0f172a;
+    --ink-soft:   #1e293b;
+    --muted:      #64748b;
+    --line:       #e2e8f0;
+    --line-soft:  #f1f5f9;
+    --bg:         #ffffff;
+    --bg-soft:    #f8fafc;
+    --bg-card:    #ffffff;
+    --accent:     #2a5fb4;
+    --accent-ink: #1c4791;
+    --accent-bg:  #eef3fb;
+    --danger:     #c4341a;
+    --danger-bg:  #fff5f3;
+    --ok:         #047857;
+    --ok-bg:      #ecfdf5;
+
+    /* Type scale */
+    --type-display:  140px;
+    --type-title:    40px;
+    --type-section:  56px;
+    --type-subtitle: 36px;
+    --type-body:     26px;
+    --type-small:    24px;
+    --type-tag:      24px;
+    --type-mono:     24px;
+
+    /* Spacing */
+    --pad-x:       100px;
+    --pad-top:     90px;
+    --pad-bottom:  80px;
+    --gap-title:   42px;
+    --gap-item:    24px;
+  }
+
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    font-family: "Noto Sans KR", "Pretendard", "Apple SD Gothic Neo", -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+    color: var(--ink);
+    background: #1a1a1a;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+    -webkit-font-smoothing: antialiased;
+  }
+  deck-stage:not(:defined) { visibility: hidden; }
+
+  /* Base section styling */
+  section {
+    background: var(--bg);
+    color: var(--ink);
+    padding: var(--pad-top) var(--pad-x) var(--pad-bottom);
+    font-size: var(--type-body);
+    line-height: 1.55;
+    overflow: hidden;
+  }
+
+  .mono { font-family: "JetBrains Mono", ui-monospace, Menlo, monospace; }
+  .accent { color: var(--accent); }
+  .muted { color: var(--muted); }
+  .ink { color: var(--ink); }
+
+  /* Slide chrome */
+  .slide-head { display: flex; align-items: baseline; justify-content: space-between; border-bottom: 2px solid var(--ink); padding-bottom: 18px; margin-bottom: 36px; gap: 24px; }
+  .slide-head .left { display: flex; align-items: baseline; gap: 20px; min-width: 0; }
+  .slide-head .label { font-family: "JetBrains Mono", monospace; font-size: 20px; color: var(--accent); letter-spacing: .14em; font-weight: 600; }
+  .slide-head .title { font-size: var(--type-title); font-weight: 800; letter-spacing: -.02em; line-height: 1; white-space: nowrap; }
+  .slide-head .right { font-size: 20px; line-height: 1.45; color: var(--muted); text-align: right; flex-shrink: 0; padding-left: 24px; } .slide-head .right b { color: var(--ink); font-weight: 600; }
+
+  .slide-foot {
+    position: absolute;
+    left: var(--pad-x);
+    right: var(--pad-x);
+    bottom: 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 24px;
+    color: var(--muted);
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    font-weight: 500;
+    background: #fff;
+    padding: 4px 0;
+  }
+  .slide-foot .num {
+    font-family: "JetBrains Mono", monospace;
+    color: var(--ink);
+  }
+
+  /* Tags */
+  .kw {
+    display: inline-block;
+    font-size: var(--type-tag);
+    padding: 6px 16px;
+    border: 1.5px solid var(--line);
+    border-radius: 999px;
+    color: var(--ink-soft);
+    background: var(--bg);
+    font-weight: 500;
+  }
+  .kw.mine {
+    border-color: var(--accent);
+    background: var(--accent-bg);
+    color: var(--accent-ink);
+    font-weight: 600;
+  }
+  .kw-row { display: flex; flex-wrap: wrap; gap: 10px; }
+
+  /* Cover */
+  .cover {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 120px var(--pad-x);
+    background: var(--bg);
+  }
+  .cover .top-line { width: 80px; height: 6px; background: var(--ink); margin-bottom: 40px; }
+  .cover .eyebrow {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 28px;
+    color: var(--muted);
+    letter-spacing: .3em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .cover h1 {
+    font-size: var(--type-display);
+    font-weight: 900;
+    letter-spacing: -.04em;
+    line-height: 1;
+    margin: 0 0 20px 0;
+  }
+  .cover .role {
+    font-size: 40px;
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 64px;
+  }
+  .cover .slogan {
+    font-size: 52px;
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: -.02em;
+    margin-bottom: 28px;
+  }
+  .cover .slogan-sub {
+    font-size: 28px;
+    color: var(--muted);
+    line-height: 1.55;
+    max-width: 1100px;
+  }
+  .cover .meta {
+    display: grid;
+    grid-template-columns: 140px 1fr 140px 1fr;
+    row-gap: 14px;
+    column-gap: 24px;
+    font-size: 26px;
+    max-width: 1200px;
+  }
+  .cover .meta b { font-weight: 600; color: var(--ink); }
+  .cover .meta span { color: #334155; }
+  .cover .footer-row {
+    display: flex; justify-content: space-between; align-items: end;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 24px;
+    color: var(--muted);
+    letter-spacing: .14em;
+    text-transform: uppercase;
+  }
+
+  /* Section divider */
+  .section-divider {
+    background: var(--ink);
+    color: #fff;
+    padding: var(--pad-x);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .section-divider .num {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 32px;
+    color: rgba(255,255,255,.5);
+    letter-spacing: .3em;
+    margin-bottom: 40px;
+  }
+  .section-divider .title-block {
+    margin-top: auto;
+  }
+  .section-divider .super {
+    font-size: 30px;
+    color: rgba(255,255,255,.7);
+    font-weight: 500;
+    margin-bottom: 18px;
+    letter-spacing: -.01em;
+  }
+  .section-divider h2 {
+    font-size: 200px;
+    font-weight: 900;
+    letter-spacing: -.04em;
+    line-height: .95;
+    margin: 0 0 30px 0;
+  }
+  .section-divider .sub {
+    font-size: 32px;
+    color: rgba(255,255,255,.6);
+    max-width: 1300px;
+    line-height: 1.5;
+    font-weight: 400;
+  }
+  .section-divider .accent-bar {
+    display: inline-block;
+    width: 120px; height: 6px;
+    background: #93b8ed;
+    margin-bottom: 30px;
+  }
+  .section-divider .footer-row {
+    display: flex;
+    justify-content: space-between;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 24px;
+    color: rgba(255,255,255,.5);
+    letter-spacing: .14em;
+    text-transform: uppercase;
+  }
+
+  /* Lead intro (large quote-style) */
+  .lead-quote {
+    border-left: 6px solid var(--accent);
+    padding: 24px 36px;
+    background: var(--accent-bg);
+    border-radius: 0 8px 8px 0;
+    margin-bottom: 36px;
+  }
+  .lead-quote .big {
+    font-size: 44px;
+    font-weight: 700;
+    line-height: 1.3;
+    letter-spacing: -.015em;
+    color: var(--ink);
+  }
+  .lead-quote .sub {
+    font-size: 24px;
+    color: #334155;
+    margin-top: 14px;
+    line-height: 1.55;
+  }
+
+  /* Two-column generic */
+  .two {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: start;
+  }
+  .two.image-right { grid-template-columns: 1.05fr 1fr; }
+  .two.image-left  { grid-template-columns: 1fr 1.05fr; }
+
+  /* Image card */
+  .img-card {
+    background: var(--bg-soft);
+    border: 1.5px solid var(--line);
+    border-radius: 10px;
+    padding: 18px;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  .img-card img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto; height: auto;
+    object-fit: contain;
+    display: block;
+  }
+  .img-card.dark { background: #0b1220; border-color: #0b1220; }
+
+  /* Caption row under headers (sub) */
+  .lead-sub {
+    font-size: 26px;
+    color: var(--muted);
+    margin-top: -28px;
+    margin-bottom: 28px;
+    line-height: 1.5;
+  }
+
+  /* Section title (mini section above content) */
+  .mini-title {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 24px;
+    color: var(--accent);
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+
+  /* List */
+  ul.clean {
+    list-style: none;
+    padding: 0; margin: 0;
+  }
+  ul.clean li {
+    position: relative;
+    padding: 10px 0 10px 28px;
+    font-size: 24px;
+    line-height: 1.5;
+    border-bottom: 1px dashed var(--line);
+  }
+  ul.clean li:last-child { border-bottom: none; }
+  ul.clean li::before {
+    content: "";
+    position: absolute; left: 0; top: 22px;
+    width: 12px; height: 2px;
+    background: var(--accent);
+  }
+  ul.clean li b { color: var(--ink); font-weight: 700; }
+  ul.awards li b { font-size: 21px; line-height: 1.3; display: inline-block; }
+  ul.awards li { padding-top: 8px; padding-bottom: 8px; }
+  ul.awards li span.muted { font-size: 19px; display: inline-block; margin-top: 2px; }
+  ul.awards li::before { top: 17px; }
+
+  /* TS card (problem -> solve -> result) */
+  .ts {
+    background: var(--bg-soft);
+    border: 1.5px solid var(--line);
+    border-left: 6px solid var(--danger);
+    border-radius: 10px;
+    padding: 28px 36px;
+  }
+  .ts h3 {
+    font-size: 30px;
+    font-weight: 700;
+    margin: 0 0 18px 0;
+    color: var(--danger);
+    line-height: 1.3;
+  }
+  .ts .ts-row { margin: 14px 0; font-size: 24px; line-height: 1.75; }
+  .ts .ts-row .label { display: inline-block; font-family: "JetBrains Mono", monospace; font-size: 16px; font-weight: 700; color: var(--danger); text-transform: uppercase; letter-spacing: .14em; padding: 3px 10px; border: 1.5px solid #f0c8c0; background: #fff; border-radius: 6px; margin-right: 10px; vertical-align: 2px; }
+  .ts .ts-row b { color: var(--ink); }
+  .ts em { color: var(--accent-ink); font-style: normal; font-weight: 600; }
+
+  /* Stat row (numbers) */
+  .stat-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+  .stat {
+    background: var(--bg-soft);
+    border: 1.5px solid var(--line);
+    border-radius: 10px;
+    padding: 24px 26px;
+  }
+  .stat .num {
+    font-size: 64px;
+    font-weight: 800;
+    color: var(--accent);
+    letter-spacing: -.02em;
+    line-height: 1;
+  }
+  .stat .label {
+    font-size: 24px;
+    color: var(--muted);
+    margin-top: 10px;
+    line-height: 1.4;
+  }
+
+  /* Card */
+  .card {
+    background: var(--bg-soft);
+    border: 1.5px solid var(--line);
+    border-radius: 10px;
+    padding: 24px 28px;
+  }
+  .card h4 {
+    font-size: 28px;
+    font-weight: 700;
+    margin: 0 0 12px 0;
+    color: var(--ink);
+  }
+  .card p, .card li { font-size: 24px; line-height: 1.55; color: #334155; }
+  .card.value {
+    border-top: 5px solid var(--accent);
+    border-left: 1.5px solid var(--line);
+  }
+  .card.value h4 { color: var(--accent); font-size: 30px; }
+  .card.value .quote { font-style: italic; color: var(--muted); font-size: 24px; margin: -4px 0 12px 0; }
+
+  /* Skill row */
+  .skills { display: grid; gap: 14px; }
+  .skill-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    padding: 18px 0;
+    border-bottom: 1.5px dashed var(--line);
+    align-items: center;
+  }
+  .skill-row .name {
+    font-size: 30px;
+    font-weight: 700;
+  }
+  .skill-row .desc {
+    font-size: 24px;
+    color: var(--muted);
+    margin-top: 4px;
+    line-height: 1.4;
+  }
+  .skill-row .stars {
+    font-size: 32px;
+    color: var(--accent);
+    letter-spacing: 6px;
+    white-space: nowrap;
+  }
+  .skill-row .stars .empty { color: var(--line); }
+
+  /* Timeline */
+  .timeline {
+    border-left: 3px solid var(--accent);
+    padding-left: 36px;
+    margin-left: 8px;
+  }
+  .timeline .item { position: relative; padding: 10px 0; }
+  .timeline .item::before {
+    content: "";
+    position: absolute;
+    left: -47px; top: 26px;
+    width: 16px; height: 16px;
+    background: var(--accent);
+    border-radius: 50%;
+    border: 4px solid #fff;
+    box-shadow: 0 0 0 2px var(--accent);
+  }
+  .timeline .item .ti-title {
+    font-size: 30px;
+    font-weight: 700;
+  }
+  .timeline .item .ti-meta {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 24px;
+    color: var(--muted);
+    margin-top: 6px;
+  }
+
+  /* Project list (overview) */
+  .proj-list { display: grid; gap: 14px; }
+  .proj-card { background: var(--bg-soft); border: 1.5px solid var(--line); border-left: 6px solid var(--accent); border-radius: 10px; padding: 18px 22px; }
+  .proj-card .head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; }
+  .proj-card .name { font-size: 30px; font-weight: 800; letter-spacing: -.015em; }
+  .proj-card .role-tag { font-size: 18px; padding: 4px 12px;
+    border-radius: 999px;
+    background: #fff;
+    border: 1.5px solid var(--line);
+    color: var(--ink-soft);
+    font-weight: 500;
+  }
+  .proj-card .role-tag.lead {
+    background: var(--ink);
+    color: #fff;
+    border-color: var(--ink);
+    font-weight: 700;
+  }
+  .proj-card .one { font-size: 22px; color: #334155; margin: 0 0 8px 0; line-height: 1.4; }
+  .proj-card .meta { display: flex; gap: 18px; flex-wrap: wrap; font-size: 20px; color: var(--muted); }
+  .proj-card .meta b { color: var(--accent); font-weight: 600; }
+
+  /* Hero principle slides */
+  .principle-num {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 28px;
+    color: var(--accent);
+    letter-spacing: .2em;
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+  .principle-title {
+    font-size: 60px;
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -.02em;
+    margin-bottom: 32px;
+    color: var(--ink);
+  }
+  .principle-body {
+    font-size: 28px;
+    line-height: 1.65;
+    color: #334155;
+    max-width: 1500px;
+  }
+  .principle-body em {
+    background: linear-gradient(transparent 60%, var(--accent-bg) 60%);
+    color: var(--accent-ink);
+    font-style: normal;
+    font-weight: 700;
+  }
+
+  /* Closing */
+  .closing-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+
+  /* Architecture full slide */
+  .arch-slide {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    gap: 24px;
+    height: calc(1080px - var(--pad-top) - var(--pad-bottom));
+  }
+
+  /* Tighter padding for image-heavy slides */
+  .pad-snug { padding-top: 70px; padding-bottom: 70px; }
+
+  /* Why table */
+  table.why {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 24px;
+  }
+  table.why td { padding: 10px 14px;
+    border-bottom: 1.5px solid var(--line);
+    vertical-align: top;
+    line-height: 1.5;
+  }
+  table.why td.k {
+    width: 30%;
+    font-weight: 700;
+    color: var(--accent-ink);
+  }
+  table.why tr:last-child td { border-bottom: none; }
+
+  /* Bait / closing rows */
+  .bait { display: grid; gap: 4px; }
+  .bait .row {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 24px;
+    padding: 16px 0;
+    border-bottom: 1px dashed var(--line);
+    font-size: 24px;
+    line-height: 1.5;
+  }
+  .bait .row:last-child { border-bottom: none; }
+  .bait .when {
+    font-family: "JetBrains Mono", monospace;
+    color: var(--accent);
+    font-weight: 600;
+  }
+  .bait .what b { color: var(--ink); }
+
+</style>
+<style>
+/* ===== website shell CSS ===== */
+
+:root{ --slide-scale: 0.6; --nav-h: 60px; }
+html{ scroll-behavior:smooth; }
+body{ background:#0b1220 !important; }
+.deck,.site-nav,.site-foot{ font-family:"Noto Sans KR","Pretendard","Apple SD Gothic Neo",-apple-system,sans-serif; }
+.scroll-progress{ position:fixed; top:0; left:0; height:3px; width:0; z-index:120;
+  background:linear-gradient(90deg,#2a5fb4,#5b8def); transition:width .1s linear; }
+.site-nav{ position:fixed; top:0; left:0; right:0; height:var(--nav-h); z-index:100;
+  display:flex; align-items:center; gap:18px; padding:0 24px;
+  background:rgba(11,18,32,.78); backdrop-filter:blur(14px); border-bottom:1px solid rgba(255,255,255,.08); }
+.site-nav .brand{ font-weight:800; font-size:18px; color:#fff; letter-spacing:-.01em; margin-right:auto;
+  display:flex; align-items:center; gap:10px; cursor:pointer; }
+.site-nav .brand .dot{ width:9px; height:9px; border-radius:50%; background:#5b8def; }
+.site-nav .brand small{ font-weight:500; font-size:12px; color:#7c8aa3; letter-spacing:.18em; }
+.nav-links{ display:flex; align-items:center; gap:2px; flex-wrap:wrap; justify-content:flex-end; }
+.nav-link{ position:relative; color:#aab4c5; text-decoration:none; font-size:14px; font-weight:600;
+  padding:8px 12px; border-radius:8px; white-space:nowrap; transition:color .15s,background .15s; }
+.nav-link:hover{ color:#fff; background:rgba(255,255,255,.06); }
+.nav-link.active{ color:#fff; }
+.nav-link.active::after{ content:""; position:absolute; left:12px; right:12px; bottom:3px; height:2px;
+  background:#5b8def; border-radius:2px; }
+.nav-dd{ position:relative; }
+.nav-dd-menu{ position:absolute; top:calc(100% + 8px); right:0; left:auto; min-width:190px; padding:6px;
+  background:#121b2e; border:1px solid rgba(255,255,255,.1); border-radius:12px;
+  box-shadow:0 16px 40px rgba(0,0,0,.45); display:flex; flex-direction:column; gap:2px;
+  opacity:0; visibility:hidden; transform:translateY(-6px); transition:.16s; }
+.nav-dd:hover .nav-dd-menu, .nav-dd.open .nav-dd-menu{ opacity:1; visibility:visible; transform:none; }
+.nav-dd-menu .nav-link{ padding:9px 12px; }
+.nav-dd-menu .nav-link.active::after{ display:none; }
+.nav-dd-menu .nav-link.active{ background:rgba(91,141,239,.16); color:#cfe0ff; }
+.caret{ font-size:10px; opacity:.7; }
+/* nested submenu (Projects -> DrawRun -> 개요) */
+.nav-sub{ position:relative; }
+.nav-sub-toggle{ display:flex; align-items:center; justify-content:space-between; gap:10px; }
+.nav-sub-menu{ position:absolute; top:-7px; right:calc(100% + 6px); left:auto; min-width:210px; padding:6px;
+  background:#16223a; border:1px solid rgba(255,255,255,.1); border-radius:12px;
+  box-shadow:0 16px 40px rgba(0,0,0,.5); display:flex; flex-direction:column; gap:2px;
+  opacity:0; visibility:hidden; transform:translateX(6px); transition:.16s; z-index:5; }
+.nav-sub:hover > .nav-sub-menu, .nav-sub.open > .nav-sub-menu{ opacity:1; visibility:visible; transform:none; }
+.nav-sub-menu .nav-link{ padding:9px 12px; }
+.nav-sub-menu .nav-link.active::after{ display:none; }
+.nav-sub-menu .nav-link.active{ background:rgba(91,141,239,.16); color:#cfe0ff; }
+.nav-burger{ display:none; background:none; border:0; cursor:pointer; padding:8px; flex-direction:column; gap:5px; }
+.nav-burger span{ width:22px; height:2px; background:#cdd6e4; border-radius:2px; transition:.2s; }
+.deck{ max-width:1360px; margin:0 auto; padding:calc(var(--nav-h) + 40px) 24px 80px;
+  display:flex; flex-direction:column; gap:46px; }
+.slide-wrap{ position:relative; width:100%; height:calc(1080px * var(--slide-scale)); overflow:hidden;
+  border-radius:18px; background:#fff; box-shadow:0 24px 60px -20px rgba(0,0,0,.6), 0 0 0 1px rgba(255,255,255,.05);
+  scroll-margin-top:calc(var(--nav-h) + 24px); }
+.slide{ width:1920px; height:1080px; transform-origin:top left; transform:scale(var(--slide-scale)); }
+.slide > section{ width:1920px !important; height:1080px !important; position:relative; }
+.slide-wrap.is-divider{ box-shadow:0 24px 60px -20px rgba(42,95,180,.55), 0 0 0 1px rgba(91,141,239,.25); }
+.slide-wrap > .chip{ position:absolute; top:14px; left:16px; z-index:5; font-size:12px; font-weight:700;
+  color:#fff; background:rgba(15,23,42,.55); backdrop-filter:blur(6px); padding:5px 12px; border-radius:999px;
+  letter-spacing:.02em; pointer-events:none; }
+.site-foot{ text-align:center; color:#8a96aa; padding:48px 24px 70px; border-top:1px solid rgba(255,255,255,.06); }
+.site-foot .ft-name{ color:#fff; font-weight:800; font-size:22px; }
+.site-foot a{ color:#5b8def; text-decoration:none; }
+.to-top{ position:fixed; right:22px; bottom:22px; z-index:90; width:46px; height:46px; border-radius:50%;
+  background:#2a5fb4; color:#fff; border:0; cursor:pointer; font-size:20px; box-shadow:0 8px 24px rgba(0,0,0,.4);
+  opacity:0; visibility:hidden; transition:.2s; }
+.to-top.show{ opacity:1; visibility:visible; }
+.to-top:hover{ background:#3b73d0; }
+@media (max-width:980px){
+  .nav-links{ position:fixed; top:var(--nav-h); left:0; right:0; flex-direction:column; align-items:stretch;
+    gap:2px; padding:12px; background:#0d1626; border-bottom:1px solid rgba(255,255,255,.1);
+    transform:translateY(-130%); transition:transform .25s; max-height:calc(100vh - var(--nav-h)); overflow:auto; }
+  .nav-links.open{ transform:none; }
+  .nav-burger{ display:flex; }
+  .nav-dd{ width:100%; }
+  .nav-dd-menu{ position:static; opacity:1; visibility:visible; transform:none; box-shadow:none;
+    background:transparent; border:0; padding:4px 0 4px 14px; }
+  .nav-sub{ width:100%; }
+  .nav-sub-menu{ position:static; opacity:1; visibility:visible; transform:none; box-shadow:none;
+    background:transparent; border:0; padding:2px 0 2px 16px; min-width:0; }
+  .nav-sub-toggle{ justify-content:flex-start; }
+  .nav-link.active::after{ display:none; }
+  .nav-link.active{ background:rgba(91,141,239,.16); }
+  .deck{ padding:calc(var(--nav-h) + 20px) 12px 50px; gap:30px; }
+  .slide-wrap{ border-radius:12px; }
+}
+
+</style>
+</head>
+<body>
+<div class="scroll-progress"></div>
+<header class="site-nav">
+  <div class="brand"><span class="dot"></span> 박성문 <small>PORTFOLIO</small></div>
+  <nav class="nav-links">
+    <a class="nav-link" data-target="s0" href="#s0">Home</a>
+    <a class="nav-link" data-target="s1" href="#s1">About Me</a>
+    <a class="nav-link" data-target="s2" href="#s2">Campus Activity</a>
+    <a class="nav-link" data-target="s3" href="#s3">Tech Stack</a>
+    <a class="nav-link" data-target="s4" href="#s4">BE 4가지 가치</a>
+    <div class="nav-dd">
+      <a class="nav-link nav-dd-toggle" data-target="s5" href="#s5">Projects <span class="caret">▾</span></a>
+      <div class="nav-dd-menu">
+      <a class="nav-link" data-target="s5" href="#s5">Overview</a>
+      <div class="nav-sub">
+        <a class="nav-link nav-sub-toggle" data-target="s6" href="#s6">DrawRun <span class="caret">▸</span></a>
+        <div class="nav-sub-menu">
+        <a class="nav-link" data-target="s7" href="#s7">개요 &amp; 아키텍처</a>
+        <a class="nav-link" data-target="s8" href="#s8">화면 흐름</a>
+        <a class="nav-link" data-target="s9" href="#s9">담당 영역</a>
+        <a class="nav-link" data-target="s10" href="#s10">Trouble 01</a>
+        <a class="nav-link" data-target="s11" href="#s11">Trouble 02</a>
+        </div>
+      </div>
+      <div class="nav-sub">
+        <a class="nav-link nav-sub-toggle" data-target="s12" href="#s12">The Interview <span class="caret">▸</span></a>
+        <div class="nav-sub-menu">
+        <a class="nav-link" data-target="s13" href="#s13">개요 &amp; 아키텍처</a>
+        <a class="nav-link" data-target="s14" href="#s14">담당 영역</a>
+        <a class="nav-link" data-target="s15" href="#s15">Trouble 01</a>
+        <a class="nav-link" data-target="s16" href="#s16">Trouble 02</a>
+        </div>
+      </div>
+      <div class="nav-sub">
+        <a class="nav-link nav-sub-toggle" data-target="s17" href="#s17">BLUEFOX <span class="caret">▸</span></a>
+        <div class="nav-sub-menu">
+        <a class="nav-link" data-target="s18" href="#s18">개요 &amp; 아키텍처</a>
+        <a class="nav-link" data-target="s19" href="#s19">화면 &amp; 담당</a>
+        <a class="nav-link" data-target="s20" href="#s20">Trouble 01</a>
+        <a class="nav-link" data-target="s21" href="#s21">Trouble 02</a>
+        <a class="nav-link" data-target="s22" href="#s22">Trouble 03</a>
+        </div>
+      </div>
+      <div class="nav-sub">
+        <a class="nav-link nav-sub-toggle" data-target="s23" href="#s23">Newstagram <span class="caret">▸</span></a>
+        <div class="nav-sub-menu">
+        <a class="nav-link" data-target="s24" href="#s24">개요 &amp; 아키텍처</a>
+        <a class="nav-link" data-target="s25" href="#s25">담당 영역</a>
+        <a class="nav-link" data-target="s26" href="#s26">Trouble 01</a>
+        <a class="nav-link" data-target="s27" href="#s27">Trouble 02</a>
+        <a class="nav-link" data-target="s28" href="#s28">Trouble 03</a>
+        </div>
+      </div>
+      </div>
+    </div>
+    <a class="nav-link" data-target="s29" href="#s29">Closing</a>
+  </nav>
+  <button class="nav-burger" aria-label="menu"><span></span><span></span><span></span></button>
+</header>
+
+<main class="deck">
+<div class="slide-wrap" id="s0">
+  <span class="chip">Cover</span>
+  <div class="slide"><section class="cover" data-label="Cover">
+  <div>
+    <div class="top-line"></div>
+    <div class="eyebrow">Portfolio · 2026</div>
+    <h1>박성문</h1>
+    <div class="role">Backend Engineer</div>
+
+    <div class="slogan">
+      "정답을 찾지 않고,<br>가설을 검증하는 개발자."
+    </div>
+    <p class="slogan-sub">
+      가설을 묻고, "동작하는 결과물"을 의심하는 것에서<br>진짜 학습이 시작된다고 믿습니다.
+    </p>
+  </div>
+
+  <div>
+    <div class="meta" style="margin-bottom:60px;">
+      <b>Name</b><span>박성문 (Park Seongmoon)</span>
+      <b>Role</b><span>Backend Engineer</span>
+      <b>Email</b><span>dev_codelian@naver.com</span>
+      <b>GitHub</b><span>github.com/psmoon7304</span>
+    </div>
+    <div class="footer-row">
+      <span>Backend · 가설 → 검증 → 트레이드오프</span>
+      <span>01 / 30</span>
+    </div>
+  </div>
+</section></div>
+</div>
+<div class="slide-wrap" id="s1">
+  <span class="chip">About Me</span>
+  <div class="slide"><section data-label="About Me">
+  <div class="slide-head">
+    <div class="left">
+      <span class="label">01</span>
+      <span class="title">About Me</span>
+    </div>
+    <div class="right">Profile · Education · Career</div>
+  </div>
+
+  <div class="two" style="grid-template-columns: 320px 1fr 1.3fr; gap: 48px;">
+    <div>
+      <div class="mini-title">Photo</div>
+      <div class="photo-ph" style="width:100%;height:420px;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(135deg,#1e293b,#2a5fb4);color:#fff;"><div style="font-size:120px;font-weight:800;line-height:1;">박</div><div style="font-size:20px;letter-spacing:.28em;margin-top:14px;opacity:.85;">PHOTO</div></div>
+    </div>
+
+    <div>
+      <div class="mini-title">Profile</div>
+      <div style="font-size: 44px; font-weight: 800; letter-spacing:-.015em; margin-bottom: 6px;">박성문</div>
+      <div style="font-size: 24px; color: var(--muted); letter-spacing: .04em; margin-bottom: 4px;">PARK SEONGMOON</div>
+      <div style="font-size: 24px; color: var(--muted); margin-bottom: 32px;">1999. 11. 17</div>
+
+      <div class="mini-title">Certification</div>
+      <ul class="clean">
+        <li><b>리눅스마스터 2급</b> <span class="muted" style="margin-left:12px;">2026.04</span></li>
+        <li><b>SQLD</b> <span class="muted" style="margin-left:12px;">2025.09</span></li>
+        <li><b>정보처리기능사</b> <span class="muted" style="margin-left:12px;">2021.10</span></li>
+      </ul>
+    </div>
+
+    <div>
+      <div class="mini-title">Education</div>
+      <ul class="clean" style="margin-bottom: 16px;">
+        <li><b>호서대학교 컴퓨터정보공학부 소프트웨어트랙 · 학사</b><br><span class="muted" style="font-size: 24px;">2018.03 – 2024.02 · 졸업 학점 3.63/4.5 (130학점)</span></li>
+      </ul>
+
+      <div class="mini-title">Experience</div>
+      <ul class="clean" style="margin-bottom: 16px;">
+        <li><b>SSAFY (삼성청년SW·AI아카데미) 14기 JAVA 전공반</b><br><span class="muted" style="font-size: 24px;">2025.07 – 현재</span></li>
+        <li><b>TOPOLAR (토니스엘리트 코딩) 코딩학원 강사 · 정직원</b><br><span class="muted" style="font-size: 24px;">2021.08 – 2022.09 (1년)</span></li>
+        <li><b>토니스엘리트 코딩학원 강사 · 파트타임</b><br><span class="muted" style="font-size: 24px;">2017.12 – 2019.12 (2년)</span></li>
+      </ul>
+
+      <div class="mini-title">Awards</div>
+      <ul class="clean awards">
+        <li><b>SSAFY 14기 AI 드로잉 러닝 챌린지 프로젝트 우수상</b><br><span class="muted" style="font-size:22px;">2026.05</span></li>
+        <li><b>SSAFY 14기 인공지능 음성 AI 활용 프로젝트 우수상</b><br><span class="muted" style="font-size:22px;">2026.03</span></li>
+        <li><b>SSAFY 14기 성능 테스트 기반 AI 코드 리뷰 프로젝트 우수상</b><br><span class="muted" style="font-size:22px;">2026.02</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="slide-foot"><span>박성문 · Portfolio</span><span class="num">02 / 30</span></div>
+</section></div>
+</div>
+<div class="slide-wrap" id="s2">
+  <span class="chip">Campus Activity</span>
+  <div class="slide"><section data-label="Campus Activity">
+  <div class="slide-head">
+    <div class="left">
+      <span class="label">02</span>
+      <span class="title">대학생활</span>
+    </div>
+    <div class="right">Campus Activity Timeline</div>
+  </div>
+
+  <p style="font-size: 26px; color:#334155; margin-bottom: 40px; max-width: 1300px;">
+    개발 외에 사람을 모으고 의견을 조율하는 일에도 시간을 많이 썼습니다.<br>학생회 · 학회 · 멘토 활동을 통해 다양한 학년 · 학과의 사람들과 함께 일해본 경험이 있습니다.
+  </p>
+
+  <div class="timeline">
+    <div class="item">
+      <div class="ti-title">호서대학교 AI융합대학 단과대 학생회 · <span class="accent">학생회장</span></div>
+      <div class="ti-meta">2022.12 – 2023.11</div>
+    </div>
+    <div class="item">
+      <div class="ti-title">호서대학교 리본 학습공동체 · 학습활동 멘토</div>
+      <div class="ti-meta">2022.09 – 2022.12</div>
+    </div>
+    <div class="item">
+      <div class="ti-title">호서대학교 AI융합대학 단과대 학생회 · 홍보2국장</div>
+      <div class="ti-meta">2021.12 – 2022.11</div>
+    </div>
+    <div class="item">
+      <div class="ti-title">호서대학교 과학기술융합대학 단과대 학생회 · 홍보국장</div>
+      <div class="ti-meta">2018.12 – 2019.11</div>
+    </div>
+    <div class="item">
+      <div class="ti-title">호서대학교 컴퓨터정보공학부 학회 · 집행부원</div>
+      <div class="ti-meta">2018.03 – 2018.11</div>
+    </div>
+    <div class="item">
+      <div class="ti-title">호서대학교 '코인스' 교내 학술 동아리 · 멘토</div>
+      <div class="ti-meta">2018.03 – 2018.06</div>
+    </div>
+  </div>
+
+  <div class="slide-foot"><span>박성문 · Portfolio</span><span class="num">03 / 30</span></div>
+</section></div>
+</div>
+<div class="slide-wrap" id="s3">
+  <span class="chip">Tech Stack</span>
+  <div class="slide"><section data-label="Tech Stack">
+  <div class="slide-head">
+    <div class="left">
+      <span class="label">03</span>
+      <span class="title">Tech Stack</span>
+    </div>
+    <div class="right">Core &amp; Other Skills</div>
+  </div>
+
+  <div class="two" style="grid-template-columns: 1.1fr 1fr; gap: 56px;">
+    <div>
+      <div class="mini-title">Core Skills · 실 운영에서 트러블슈팅까지</div>
+      <div class="skills">
+        <div class="skill-row">
+          <div>
+            <div class="name">Java &amp; Spring Boot</div>
+            <div class="desc">3개 프로젝트 백엔드 전부 · AOP / Security / OAuth2 + JWT</div>
+          </div>
+        </div>
+        <div class="skill-row">
+          <div>
+            <div class="name">JPA &amp; Hibernate</div>
+            <div class="desc">cascade · orphanRemoval · AttributeConverter · 트랜잭션 경계</div>
+          </div>
+        </div>
+        <div class="skill-row">
+          <div>
+            <div class="name">Docker &amp; Jenkins</div>
+            <div class="desc">Multi-stage build · 레이어 캐싱 · 빌드 파이프라인 설계</div>
+          </div>
+        </div>
+        <div class="skill-row">
+          <div>
+            <div class="name">PostgreSQL + pgvector</div>
+            <div class="desc">사용자 임베딩 저장 · 코사인 유사도 · Double[] ↔ pgvector 매핑</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="mini-title">Other Skills</div>
+
+      <div style="margin-bottom: 18px;">
+        <div style="font-size: 24px; font-weight:700; margin-bottom:8px;">Backend</div>
+        <div class="kw-row">
+          <span class="kw">Spring Security</span>
+          <span class="kw">JWT / OAuth2</span>
+          <span class="kw">Spring AOP</span>
+          <span class="kw">Python</span>
+        </div>
+      </div>
+
+      <div style="margin-bottom: 18px;">
+        <div style="font-size: 24px; font-weight:700; margin-bottom:8px;">Data &amp; Messaging</div>
+        <div class="kw-row">
+          <span class="kw">Apache Kafka (KRaft)</span>
+          <span class="kw">MySQL</span>
+          <span class="kw">SQLite</span>
+          <span class="kw">Redis</span>
+        </div>
+      </div>
+
+      <div style="margin-bottom: 18px;">
+        <div style="font-size: 24px; font-weight:700; margin-bottom:8px;">Infra / DevOps</div>
+        <div class="kw-row">
+          <span class="kw">Docker Compose</span>
+          <span class="kw">Nginx</span>
+          <span class="kw">AWS EC2 / S3</span>
+          <span class="kw">Prometheus</span>
+          <span class="kw">Grafana</span>
+          <span class="kw">Loki / Promtail</span>
+          <span class="kw">Node Exporter</span>
+          <span class="kw">cAdvisor</span>
+          <span class="kw">Let's Encrypt</span>
+        </div>
+      </div>
+
+      <div>
+        <div style="font-size: 24px; font-weight:700; margin-bottom:8px;">Tools &amp; Environment</div>
+        <div class="kw-row">
+          <span class="kw">Git / GitHub / GitLab</span>
+          <span class="kw">IntelliJ</span>
+          <span class="kw">VS Code</span>
+          <span class="kw">Eclipse</span>
+          <span class="kw">Swagger</span>
+          <span class="kw">Postman</span>
+          <span class="kw">Jira</span>
+          <span class="kw">Notion</span>
+          <span class="kw">Slack</span>
+          <span class="kw">macOS / Linux</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-foot"><span>박성문 · Portfolio</span><span class="num">04 / 30</span></div>
+</section></div>
+</div>
+<div class="slide-wrap" id="s4">
+  <span class="chip">BE 4가지 가치</span>
+  <div class="slide"><section data-label="BE 4가지 가치">
+  <div class="slide-head">
+    <div class="left">
+      <span class="label">04</span>
+      <span class="title">BE 에서 가장 신경 쓰는 4가지</span>
+    </div>
+    <div class="right">My BE Principles</div>
+  </div>
+
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;"><div class="card value" style="padding: 16px 22px;"><h4 style="font-size:26px; margin-bottom:6px;">1. 동작 신뢰성 — Reliability</h4>
+      <div class="quote" style="font-size:18px; margin:0 0 8px 0;">"이 코드가 동작한다 ≠ 의도한 대로 동작한다"</div>
+      <ul style="font-size: 24px; padding-left:18px; line-height:1.5;">
+        <li><b>WebSocket SockJS Fallback 사건</b> — 101 OK 만 보고 안심하지 않고, 실제 transport 끝까지 검증</li>
+        <li><b>Jenkins SHA 검증 단계 도입</b> — 빌드 성공 ≠ 배포 반영을 파이프라인이 직접 검증</li>
+        <li><b>회원 탈퇴 cascade 정리</b> — try-catch 로 덮지 않고 연관관계 주인을 다시 그림</li>
+        <li><b>사용자 임베딩 NULL 사고</b> — 저장과 조회 사이 타입 매핑 책임 지점 추적</li>
+      </ul>
+    </div>
+
+    <div class="card value" style="padding: 16px 22px;"><h4 style="font-size:26px; margin-bottom:6px;">2. 빠른 응답성 — Responsiveness</h4>
+      <div class="quote" style="font-size:18px; margin:0 0 8px 0;">"사용자 응답 시간을 부수효과로 만들지 않는다"</div>
+      <ul style="font-size: 24px; padding-left:18px; line-height:1.5;">
+        <li><b>Kafka 비동기 분리</b> — 추천 벡터 계산을 사용자 응답 경로에서 분리</li>
+        <li><b>Docker Multi-stage Build</b> — 이미지 1GB+ → 슬림 JRE 베이스</li>
+        <li><b>Docker 레이어 캐싱</b> — Gradle 의존성과 소스 레이어를 분리</li>
+        <li><b>DLT 헤더 기반 추적</b> — 실패 메시지 보존 + 본 흐름 차단 X</li>
+      </ul>
+    </div>
+
+    <div class="card value" style="padding: 16px 22px;"><h4 style="font-size:26px; margin-bottom:6px;">3. 데이터 보안성 — Security</h4>
+      <div class="quote" style="font-size:18px; margin:0 0 8px 0;">"인증·권한은 코드 리뷰가 아니라 기능 구현 단계에 있어야"</div>
+      <ul style="font-size: 24px; padding-left:18px; line-height:1.5;">
+        <li><b>음원 파일 접근 권한 누락 발견</b> — Nginx 통과 후 owner 검증 누락 케이스</li>
+        <li><b>GitHub Webhook HMAC-SHA256 서명 검증</b> — 외부 신뢰 경계를 첫 줄에서</li>
+        <li><b>JWT 인증 풀스택 책임 (BLUEFOX)</b> — OAuth → AT → 내부 JWT 발급/검증</li>
+        <li><b>JWT 파싱 실패 폴백 처리</b> — 관측이 본 흐름을 절대 막지 않도록</li>
+      </ul>
+    </div>
+
+    <div class="card value" style="padding: 16px 22px;"><h4 style="font-size:26px; margin-bottom:6px;">4. 리소스 효율 — Resource Efficiency</h4>
+      <div class="quote" style="font-size:18px; margin:0 0 8px 0;">"같은 결과라면 더 적은 리소스로"</div>
+      <ul style="font-size: 24px; padding-left:18px; line-height:1.5;">
+        <li><b>벡터 저장소 통합</b> — Qdrant 별도 운영 대신 PostgreSQL 한 곳으로</li>
+        <li><b>Docker Multi-stage + 레이어 캐싱</b> — 이미지 1GB+ → 200MB 대</li>
+        <li><b>추론 컨테이너 로컬 분리</b> — FastAPI / Qdrant 를 로컬로 분리해 비용 절감</li>
+        <li><b>컴포넌트 1개 감축</b> — 운영해야 할 인프라 면적 자체를 줄이는 접근</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="slide-foot"><span>박성문 · Portfolio</span><span class="num">05 / 30</span></div>
+</section></div>
+</div>
+<div class="slide-wrap" id="s5">
+  <span class="chip">Projects Overview</span>
+  <div class="slide"><section data-label="Projects Overview">
+  <div class="slide-head">
+    <div class="left">
+      <span class="label">05</span>
+      <span class="title">Projects Overview</span>
+    </div>
+    <div class="right">4 SSAFY 협업 프로젝트</div>
+  </div>
+
+  <p style="font-size: 26px; color:#334155; margin-bottom: 32px;">
+    아래 4개 프로젝트는 모두 <b>SSAFY 14기 협업 프로젝트</b>입니다.
+    <b>DrawRun 은 팀장</b>으로 진행했고, 나머지 3개는 팀원으로 참여했습니다.
+  </p>
+
+  <div class="proj-list" style="grid-template-columns: 1fr 1fr; gap: 16px;">
+    <div class="proj-card" style="border-left-width: 8px;">
+      <div class="head">
+        <div class="name">DrawRun</div>
+        <div class="role-tag lead">팀장 · FE &amp; INFRA</div>
+      </div>
+      <div class="one">AI 가 그린 그림 모양의 경로를 실제로 달려서 완성하고, 내 경로와의 유사도를 점수로 보여주는 러닝 챌린지 서비스</div>
+      <div class="meta">
+        <span><b>기간</b> 2026.04 – 2026.05 (8주)</span>
+        <span><b>팀</b> 6명</span>
+        <span><b>핵심</b> Flutter · Riverpod · Spring Boot · PostGIS · Redis · Jenkins</span>
+      </div>
+    </div>
+
+    <div class="proj-card">
+      <div class="head">
+        <div class="name">The Interview</div>
+        <div class="role-tag">팀원 · BE &amp; INFRA</div>
+      </div>
+      <div class="one">AI 가 사용자의 답변을 듣고 다음 질문을 이어가는, 음성 기반 자기 탐색 인터뷰 서비스</div>
+      <div class="meta">
+        <span><b>기간</b> 2026.02 – 2026.04 (6주)</span>
+        <span><b>팀</b> 5명</span>
+        <span><b>핵심</b> Spring Boot · Docker Compose · Jenkins · Nginx · Prometheus / Grafana</span>
+      </div>
+    </div>
+
+    <div class="proj-card">
+      <div class="head">
+        <div class="name">BLUEFOX</div>
+        <div class="role-tag">팀원 · BE</div>
+      </div>
+      <div class="one">PR 부하 테스트와 AI 코드리뷰를 묶어, 부하 테스트 입문자에게 친화적인 웹 서비스</div>
+      <div class="meta">
+        <span><b>기간</b> 2026.01 – 2026.02 (4주)</span>
+        <span><b>팀</b> 6명</span>
+        <span><b>핵심</b> Spring Security OAuth2 · JWT · GitHub REST API · Webhook</span>
+      </div>
+    </div>
+
+    <div class="proj-card">
+      <div class="head">
+        <div class="name">Newstagram</div>
+        <div class="role-tag">팀원 · BE</div>
+      </div>
+      <div class="one">사용자 활동 로그를 분석해 RSS 뉴스 피드를 선별하고 개인화된 기사를 추천하는 지능형 뉴스 서비스</div>
+      <div class="meta">
+        <span><b>기간</b> 2025.11 – 2025.12 (4주)</span>
+        <span><b>팀</b> 5명</span>
+        <span><b>핵심</b> Kafka · Spring AOP · pgvector · DLT</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-foot"><span>박성문 · Portfolio</span><span class="num">06 / 30</span></div>
+</section></div>
+</div>
+<div class="slide-wrap is-divider" id="s6">
+  <span class="chip">DrawRun Section</span>
+  <div class="slide"><section class="section-divider" data-label="DrawRun Section">
+  <div>
+    <div class="num">PROJECT · 01</div>
+    <div class="accent-bar"></div>
+  </div>
+  <div class="title-block">
+    <div class="super">AI 드로잉 러닝 챌린지 프로젝트 · 팀장 · FE &amp; INFRA</div>
+    <h2>DrawRun</h2>
+    <div class="sub">AI 가 그린 그림 모양의 경로를 실제로 달려서 완성하고,<br>내가 달린 경로와의 유사도 점수로 주차별 랭킹을 다투는 러닝 챌린지 서비스</div>
+  </div>
+  <div class="footer-row"><span>2026.04 – 2026.05 · 6명</span><span>07 / 30</span></div>
+</section></div>
+</div>
+<div class="slide-wrap" id="s7">
+  <span class="chip">DrawRun · 개요 &amp; 아키텍처</span>
+  <div class="slide"><section data-label="DrawRun · 개요 &amp; 아키텍처" class="pad-snug">
+  <div class="slide-head">
+    <div class="left">
+      <span class="label">DRAWRUN</span>
+      <span class="title">서비스 개요 &amp; 아키텍처</span>
+    </div>
+    <div class="right"><div><b>Period</b> 2026.04 – 05 (8주)</div><div><b>Team</b> 6명 (팀장)</div><div><b>Role</b> FE &amp; Infra</div></div>
+  </div>
+
+  <div class="two image-right" style="grid-template-columns: 1fr 1.3fr; gap: 40px;">
+    <div>
+      <div class="mini-title">기술 선택의 Why</div>
+      <table class="why">
+        <tbody><tr><td class="k">Flutter + Riverpod</td><td>GPS / 센서 / 타이머 멀티 스트림 → Provider 단위 상태 책임 분리</td></tr>
+        <tr><td class="k">naver_map + OSM</td><td>"두 점만 찍어도 도로를 따라가는 폴리라인" UX → 다익스트라 경로 직접 다룸</td></tr>
+        <tr><td class="k">webhookBridge 분리</td><td>GitLab + Jenkins → Mattermost 알림을 본 BE 와 섞지 않고 별도 컨테이너로</td></tr>
+      </tbody></table>
+
+      <div class="mini-title" style="margin-top: 14px;">핵심 스택</div>
+      <div class="kw-row">
+        <span class="kw mine">Flutter · Riverpod · Dio</span>
+        <span class="kw mine">Spring Boot 3.5 · Java 21</span>
+        <span class="kw mine">Docker · Nginx · Jenkins</span>
+        <span class="kw">PostGIS · Redis</span>
+      </div>
+    </div>
+
+    <div class="img-card" style="height: 720px; align-self: start;"><img src="assets/632f267c-090d-4008-b7d8-5952a0072505.png" alt="DrawRun 시스템 아키텍처">
+    </div>
+  </div>
+
+  <div class="slide-foot"><span>박성문 · Portfolio</span><span class="num">08 / 30</span></div>
+</section></div>
+</div>
+<div class="slide-wrap" id="s8">
+  <span class="chip">DrawRun · 화면 흐름</span>
+  <div class="slide"><section data-label="DrawRun · 화면 흐름" class="pad-snug">
+  <div class="slide-head">
+    <div class="left">
+      <span class="label">DRAWRUN</span>
+      <span class="title">화면 흐름</span>
+    </div>
+    <div class="right">챌린지 시작 → 코스 에디터 → 주차별 랭킹</div>
+  </div>
+
+  <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; align-items: start;">
+    <div>
+      <div class="img-card" style="height: 600px; background: #fff;">
+        <img src="assets/9aae73fa-aa31-4bf9-a4ae-0228001be111.png" alt="DrawRun 챌린지 메인">
+      </div>
+      <div style="margin-top: 16px;">
+        <div class="mini-title" style="margin-bottom:4px;">SCREEN 01</div>
+        <div style="font-size: 24px; font-weight:700;">챌린지 메인</div>
+        <div style="font-size: 24px; color: var(--muted); line-height:1.45; margin-top:4px;">
+          현재 위치 기반 Easy / Hard 챌린지 카드 진입
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="img-card" style="height: 600px; background: #fff;">
+        <img src="assets/de179edc-7385-46c2-80da-55cbc0b40598.png" alt="DrawRun 코스 에디터">
+      </div>
+      <div style="margin-top: 16px;">
+        <div class="mini-title" style="margin-bottom:4px;">SCREEN 02</div>
+        <div style="font-size: 24px; font-weight:700;">코스 에디터</div>
+        <div style="font-size: 24px; color: var(--muted); line-height:1.45; margin-top:4px;">
+          두 점만 찍어도 OSM 도로를 따라가는 다익스트라 폴리라인
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="img-card" style="height: 600px; background: #fff;">
+        <img src="assets/3b36952b-26de-4548-b8cf-301c6ce3aa92.png" alt="DrawRun 랭킹">
+      </div>
+      <div style="margin-top: 16px;">
+        <div class="mini-title" style="margin-bottom:4px;">SCREEN 03</div>
+        <div style="font-size: 24px; font-weight:700;">주차별 랭킹</div>
+        <div style="font-size: 24px; color: var(--muted); line-height:1.45; margin-top:4px;">
+          폴리곤 유사도(Coverage + Adherence) 기반 주간 순위
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-foot"><span>박성문 · Portfolio</span><span class="num">09 / 30</span></div>
+</section></div>
+</div>
+<div class="slide-wrap" id="s9">
+  <span class="chip">DrawRun · 담당 영역</span>
+  <div class="slide"><section data-label="DrawRun · 담당 영역">
+  <div class="slide-head">
+    <div class="left">
+      <span class="label">DRAWRUN</span>
+      <span class="title">내가 담당한 영역</span>
+    </div>
+    <div class="right">팀장 + FE 메인 + INFRA 일부</div>
+  </div>
+
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 36px;">
+    <div>
+      <div class="mini-title">팀장 &amp; FE</div>
+      <ul class="clean">
+        <li><b>[팀장]</b> 6 인 팀 운영, GitLab MR 템플릿(develop/main), 컨벤션 표준화, 머지 게이트키퍼</li>
+        <li><b>[FE] 러닝 플로우 전체</b> — 카운트다운 → 진행 → 일시정지 → 종료 → 결과, 백그라운드 측정 유지</li>
+        <li><b>[FE] 케이던스 · 칼로리 · 고도 계산</b> — step_counter / step_detector 센서 통합</li>
+        <li><b>[FE] 기록 도메인 전체</b> — 통계 / 무한스크롤 히스토리 / 상세 / 경로 보기 / 제목 수정</li>
+        <li><b>[FE] 트랙 캡처 스냅샷 정합성 fix</b> — 다익스트라 routeCoords 를 스냅샷이 사용하도록 연결</li>
+        <li><b>[FE] 마이페이지 잔디 위젯</b> — 최근 12주 주별 그리드, 빈 셀 보장</li>
+      </ul>
+    </div>
+
+    <div>
+      <div class="mini-title">Infra &amp; 인접 BE</div>
+      <ul class="clean">
+        <li><b>[INFRA] webhookBridge 단독 설계·구현</b> — GitLab + Jenkins → Mattermost 알림 브릿지 (Spring Boot · Dockerfile · Converter)</li>
+        <li><b>[INFRA] Docker Compose · Nginx</b> — 9 개 컨테이너 오케스트레이션 · 리버스 프록시 · SSL 라우팅</li>
+        <li><b>[BE] challenge · editor · record 도메인</b> — Controller / Service / Converter, 챌린지 폴리곤 URL 응답</li>
+        <li><b>[BE] 본인 상세 조회 API · 주간 활동 통계 API</b></li>
+      </ul>
+
+    </div>
+  </div>
+
+  <div class="slide-foot"><span>박성문 · Portfolio</span><span class="num">10 / 30</span></div>
+</section></div>
+</div>
+<div class="slide-wrap" id="s10">
+  <span class="chip">DrawRun · Trouble 01</span>
+  <div class="slide"><section data-label="DrawRun · Trouble 01" class="pad-snug">
+  <div class="slide-head">
+    <div class="left">
+      <span class="label">DRAWRUN · TS 01</span>
+      <span class="title">트랙 캡처 정합성</span>
+    </div>
+    <div class="right">표시용 좌표 vs 계산용 좌표 분리</div>
+  </div>
+
+  <div class="two image-right" style="grid-template-columns: 1fr 1.2fr; gap: 40px;">
+    <div>
+      <div class="ts">
+        <h3>"트랙 캡처가 직선으로 찍히던" 사건</h3>
+        <div class="ts-row"><span class="label">문제</span>
+          에디터의 다익스트라 경로는 두 점만 찍어도 <b>도로를 따라가는 곡선</b>이 나왔는데,
+          <b>트랙 스냅샷에는 두 점을 잇는 직선 폴리라인이 박혔습니다</b>.
+          화면에서 보이는 경로와 캡처로 저장·공유되는 경로가 달랐습니다.
+        </div>
+        <div class="ts-row"><span class="label">해결</span>
+          스냅샷 모듈이 받는 좌표를 <b>"사용자가 찍은 원본 점" 에서 다익스트라 결과 <span class="mono">routeCoords</span> 로 교체</b>.
+          표시 · 계산 · 캡처가 같은 좌표를 공유하도록 정리.
+        </div>
+        <div class="ts-row"><span class="label">결과</span>
+          두 점만 찍어도 도로를 따라가는 폴리라인이 스냅샷·랭킹 미리보기에 일관되게 반영.
+          "사용자가 보는 경로" 와 "캡처로 저장되는 경로" 의 시각적 불일치 해소.
+        </div>
+        <div style="margin-top: 20px; padding: 14px 18px; background: #fff5f3; border-radius: 6px; font-size: 24px; color: #8a5040; line-height: 1.5;">
+          핵심은 <b style="color:var(--danger);">"화면에 그려지는 좌표 = 캡처에 박히는 좌표" 라는 가정을 의심한 것</b>.
+          같은 도메인 안에서도 데이터가 흐르는 경로가 다르면 결과가 다릅니다.
+        </div>
+      </div>
+    </div>
+
+    <div class="img-card" style="height: 770px;">
+      <img src="assets/5ea28222-ae8a-46b9-99fc-37f27352bd4a.png" alt="Before/After: 표시·계산·캡처가 같은 좌표 공유">
+    </div>
+  </div>
+
+  <div class="slide-foot"><span>박성문 · Portfolio</span><span class="num">11 / 30</span></div>
+</section></div>
+</div>
+<div class="slide-wrap" id="s11">
+  <span class="chip">DrawRun · Trouble 02</span>
+  <div class="slide"><section data-label="DrawRun · Trouble 02" class="pad-snug">
+  <div class="slide-head">
+    <div class="left">
+      <span class="label">DRAWRUN · TS 02</span>
+      <span class="title">공유 상태 reset 의 책임 경계</span>
+    </div>
+    <div class="right">Riverpod · 의미 단위 책임 분리</div>
+  </div>
+
+  <div class="two image-right" style="grid-template-columns: 1fr 1.05fr; gap: 40px;">
+    <div>
+      <div class="ts">
+        <h3>"카운트다운 진입 직후 폴리곤 가이드가 사라지던" 통합 버그</h3>
+        <div class="ts-row"><span class="label">문제</span>
+          챌린지 "바로 시작" 으로 카운트다운에 진입한 직후, <b>폴리곤 가이드 이미지가 사라지는</b> 버그.
+          원인은 <span class="mono">resetMeasurementsForNewSession()</span> 이 측정값뿐 아니라
+          <span class="mono">polygonImageUrl</span> 까지 함께 리셋한 것 — <em>reset 의 책임 경계가 모호해서 의미가 다른 두 상태가 한 함수에서 같이 비워지던</em> 사고.
+        </div>
+        <div class="ts-row"><span class="label">해결</span>
+          함수의 책임을 "이 세션 동안만 의미가 있는 측정값" 으로 좁히고,
+          <b>세션 경계를 넘어 유지돼야 할 필드는 reset 대상에서 명시적으로 제외</b>.
+          시그니처와 docstring 으로 reset 범위를 코드 안에 박아둠.
+        </div>
+        <div class="ts-row"><span class="label">결과</span>
+          카운트다운 진입 직후에도 폴리곤 가이드가 그대로 표시. "reset 함수는 비울 대상의 의미 범위를 함수 이름으로 드러내자" 가 팀 컨벤션으로 정착.
+        </div>
+        <div style="margin-top: 16px; padding: 14px 18px; background: #fff5f3; border-radius: 6px; font-size: 24px; color: #8a5040; line-height: 1.5;">
+          책임 경계는 <b style="color:var(--danger);">"기능"이 아니라 "데이터 의미 단위"</b> 로 그어야 한다는 점을 배운 사건.
+        </div>
+      </div>
+    </div>
+
+    <div class="img-card" style="height: 770px;">
+      <img src="assets/709a716f-06aa-4d66-8c6d-2be73a2fb9d4.png" alt="Before/After: reset 책임을 의미 단위로 좁힘">
+    </div>
+  </div>
+
+  <div class="slide-foot"><span>박성문 · Portfolio</span><span class="num">12 / 30</span></div>
+</section></div>
+</div>
+<div class="slide-wrap is-divider" id="s12">
+  <span class="chip">The Interview Section</span>
+  <div class="slide"><section class="section-divider" data-label="The Interview Section">
+  <div>
+    <div class="num">PROJECT · 02</div>
+    <div class="accent-bar"></div>
+  </div>
+  <div class="title-block">
+    <div class="super">인공지능 음성 AI 활용 프로젝트 · 팀원 · BE &amp; INFRA 단독</div>
+    <h2 style="font-size: 180px;">The Interview</h2>
+    <div class="sub">AI 가 사용자의 답변을 듣고 다음 질문을 이어가는, 음성 기반의 자기 탐색 인터뷰 서비스입니다.<br>글을 쓰는 게 부담스러운 사람도 말로 자기 생각과 감정을 기록하고, 그 결과를 매거진처럼 모아볼 수 있게 한 서비스입니다.</div>
+  </div>
+  <div class="footer-row"><span>2026.02 – 2026.04 · 5명</span><span>13 / 30</span></div>
+</section></div>
+</div>
+<div class="slide-wrap" id="s13">
+  <span class="chip">The Interview · 개요 &amp; 아키텍처</span>
+  <div class="slide"><section data-label="The Interview · 개요 &amp; 아키텍처" class="pad-snug">
+  <div class="slide-head">
+    <div class="left">
+      <span class="label">THE INTERVIEW</span>
+      <span class="title">서비스 개요 &amp; 아키텍처</span>
+    </div>
+    <div class="right"><div><b>Period</b> 2026.02 – 04 (6주)</div><div><b>Team</b> 5명</div><div><b>Role</b> BE &amp; Infra 단독</div></div>
+  </div>
+
+  <div class="two image-right" style="grid-template-columns: 1fr 1.4fr; gap: 36px;">
+    <div>
+      <div class="mini-title">기술 선택의 Why</div>
+      <table class="why">
+        <tbody><tr><td class="k">Docker (단일 호스트)</td><td>13개 컨테이너를 4계층(db/app/management/monitoring)으로 분리</td></tr>
+        <tr><td class="k">Jenkins CI/CD</td><td>"빌드 성공 ≠ 배포 반영" 을 사람이 매번 잡지 않게 파이프라인이 책임</td></tr>
+        <tr><td class="k">Prom + Grafana + Loki</td><td>운영 환경 OOM 사고를 추측 아닌 그래프로 잡기 위해 도입</td></tr>
+        <tr><td class="k">Nginx + Let's Encrypt</td><td>여러 도메인 / API / 정적 자원을 한 EC2 에서 일원화</td></tr>
+      </tbody></table>
+
+      <div class="mini-title" style="margin-top: 22px;">인프라 단독 책임 — 13 EC2 + 2 로컬</div>
+      <div class="kw-row">
+        <span class="kw mine">FE · BE</span>
+        <span class="kw mine">PostgreSQL · Redis</span>
+        <span class="kw mine">Jenkins · Nginx</span>
+        <span class="kw mine">Webhook Bridge</span>
+        <span class="kw mine">Grafana · Prometheus · Loki</span>
+        <span class="kw mine">Node Exporter · cAdvisor · Promtail</span>
+        <span class="kw">FastAPI · Qdrant (로컬 머신)</span>
+      </div>
+    </div>
+
+    <div class="img-card" style="height: 750px;">
+      <img src="assets/d05671ca-a64c-462b-a52b-e7ca89f6daac.png" alt="The Interview 시스템 아키텍처">
+    </div>
+  </div>
+
+  <div class="slide-foot"><span>박성문 · Portfolio</span><span class="num">14 / 30</span></div>
+</section></div>
+</div>
+<div class="slide-wrap" id="s14">
+  <span class="chip">The Interview · 담당 영역</span>
+  <div class="slide"><section data-label="The Interview · 담당 영역" class="pad-snug">
+  <div class="slide-head">
+    <div class="left">
+      <span class="label">THE INTERVIEW</span>
+      <span class="title">내가 담당한 영역 (BE)</span>
+    </div>
+    <div class="right">BE 도메인 단독 · 인프라 단독</div>
+  </div>
+
+  <div class="mini-title">담당 영역 (BE)</div>
+  <ul class="clean">
+    <li><b>[BE] 인터뷰 도메인</b> — 공유 / 탐색 / 북마크 / 이어하기 / 강제 종료</li>
+    <li><b>[BE] 회원 도메인</b> — 가입 / 탈퇴 / cascade 정리</li>
+    <li><b>[BE] 공유 게시판 (ShareBoard)</b> — 포스트잇 레이아웃, 키워드 검증</li>
+    <li><b>[BE] 알림 시스템</b> — 공유 받은 질문에 대한 답변 알림</li>
+  </ul>
+
+  <div class="mini-title" style="margin-top: 30px;">기술 스택</div>
+  <div class="kw-row">
+    <span class="kw mine">Spring Boot 4 · Java 17</span>
+    <span class="kw mine">JPA</span>
+    <span class="kw mine">Spring Security</span>
+    <span class="kw mine">Docker · Docker Compose</span>
+    <span class="kw mine">Jenkins (CI/CD)</span>
+    <span class="kw mine">Nginx + Let's Encrypt</span>
+    <span class="kw mine">Prometheus · Grafana · Loki</span>
+    <span class="kw mine">Node Exporter · cAdvisor · Promtail</span>
+    <span class="kw mine">AWS EC2</span>
+    <span class="kw mine">Bash 자동화 스크립트</span>
+    <span class="kw">PostgreSQL</span>
+    <span class="kw">Redis</span>
+    <span class="kw">Next.js · React</span>
+    <span class="kw">FastAPI</span>
+    <span class="kw">Whisper</span>
+    <span class="kw">Claude · Gemini</span>
+    <span class="kw">vLLM (Qwen3-Embedding)</span>
+    <span class="kw">Qdrant</span>
+  </div>
+
+  <div class="slide-foot"><span>박성문 · Portfolio</span><span class="num">15 / 30</span></div>
+</section></div>
+</div>
+<div class="slide-wrap" id="s15">
+  <span class="chip">The Interview · Trouble 01</span>
+  <div class="slide"><section data-label="The Interview · Trouble 01" class="pad-snug">
+  <div class="slide-head">
+    <div class="left">
+      <span class="label">THE INTERVIEW · TS 01</span>
+      <span class="title">Jenkins SHA 검증 파이프라인</span>
+    </div>
+    <div class="right">"빌드 성공 ≠ 배포 반영" 을 파이프라인이 직접 검증</div>
+  </div>
+
+  <div class="two image-right" style="grid-template-columns: 1.05fr 1fr; gap: 40px;">
+    <div>
+      <div class="ts" style="border-left-color: var(--accent);">
+        <h3 style="color: var(--accent);">"빌드는 성공인데 배포가 안 된 것 같다" 가 반복</h3>
+        <div class="ts-row"><span class="label" style="border-color:#cdd9ee; color:var(--accent);">문제</span>
+          BE 변경이 있을 때마다 사람이 컨테이너를 직접 떨궈서 재기동하는 운영은 한계.
+          "이미지가 새 SHA 인지" 를 매번 사람이 확인해야만 배포 반영이 보장되는 구조였습니다.
+        </div>
+        <div class="ts-row"><span class="label" style="border-color:#cdd9ee; color:var(--accent);">해결</span>
+          GitLab Webhook 수신 → <b>BE 변경 감지(git diff) → Unit Test → CI build → CD deploy → SHA 검증</b> 5단계 파이프라인으로 통합.
+          <b>현재 컨테이너 이미지 SHA 와 :latest SHA 를 inspect 로 비교</b>해 일치하지 않으면 재배포, 일치하면 배포 완료 처리.
+        </div>
+        <div class="ts-row"><span class="label" style="border-color:#cdd9ee; color:var(--accent);">결과</span>
+          GitLab 의 빌드 상태가 "실제로 그 이미지가 떠 있는지" 까지 의미하게 됨.
+          BE 변경 → 배포 완료까지 사람이 끼지 않고도 신뢰 가능.
+        </div>
+        <div style="margin-top: 16px; padding: 14px 18px; background: var(--accent-bg); border-radius: 6px; font-size: 24px; color: var(--accent-ink); line-height: 1.55;">
+          파이프라인의 가치는 "자동으로 돌아간다" 가 아니라
+          <b>"의도한 상태인지 자신이 확인까지 한다"</b> 에 있다는 걸 정리한 사건.
+        </div>
+      </div>
+    </div>
+
+    <div class="img-card" style="height: 770px;">
+      <img src="assets/108fa073-64e8-4cc1-b27a-2f49772671f1.png" alt="Jenkins 5단계 파이프라인 — SHA 검증 포함">
+    </div>
+  </div>
+
+  <div class="slide-foot"><span>박성문 · Portfolio</span><span class="num">16 / 30</span></div>
+</section></div>
+</div>
+<div class="slide-wrap" id="s16">
+  <span class="chip">The Interview · Trouble 02</span>
+  <div class="slide"><section data-label="The Interview · Trouble 02" class="pad-snug">
+  <div class="slide-head">
+    <div class="left">
+      <span class="label">THE INTERVIEW · TS 02</span>
+      <span class="title">SockJS Fallback 사건</span>
+    </div>
+    <div class="right">101 OK 만 보고 안심하지 않기</div>
+  </div>
+
+  <div class="two image-right" style="grid-template-columns: 1.1fr 1fr; gap: 40px;">
+    <div>
+      <div class="ts">
+        <h3>"동작하는 것처럼 보이던" 통신을 3차 추적 끝에 잡아낸 사건</h3>
+        <div class="ts-row"><span class="label">문제</span>
+          WebSocket 연결 후 인터뷰가 진행되는 듯 보였지만, 사실 진짜 WebSocket 이 아니라
+          <b>일반 HTTP 위에서 SockJS Fallback</b> 이 동작하고 있었음.
+          개발자 도구의 <span class="mono">101 Switching Protocols</span> 만 보고 안심해선 안 된다는 사실이 결정적.
+        </div>
+        <div class="ts-row"><span class="label">해결</span>
+          Nginx 에 <span class="mono">/api/ws-connect</span> 전용 location 블록을 추가하고
+          <span class="mono">Upgrade / Connection</span> 헤더를 명시.
+          동시에 톰캣 내장 메시지 버퍼 한계를 해제. <b>두 가지가 동시에 겹쳐 있던 문제</b>.
+        </div>
+        <div class="ts-row"><span class="label">결과</span>
+          처음으로 진짜 <span class="mono">101 Switching Protocols</span> 로 동작하는 WebSocket 확인.
+          음성 → 다음 질문 흐름 정상화. 이후 "동작한다" 와 "내가 의도한 방식으로 동작한다" 를 분리해서 보는 사고 습관이 자리 잡음.
+        </div>
+        <div style="margin-top: 16px; padding: 14px 18px; background: #fff5f3; border-radius: 6px; font-size: 24px; color: #8a5040; line-height: 1.55;">
+          <b style="color:var(--danger);">3차에 걸친 잘못된 가설 → 재검증 → 진짜 원인 발견</b>의 과정.
+          Nginx Prefix Match · Spring context-path · @stomp/stompjs vs sockjs-client 의 전송 방식 차이가 모두 같은 사건의 원인.
+        </div>
+      </div>
+    </div>
+
+    <div class="img-card" style="height: 770px;">
+      <img src="assets/32416f32-05b1-47cf-a854-75a85a961cc5.png" alt="Before/After — SockJS Fallback → 진짜 WebSocket">
+    </div>
+  </div>
+
+  <div class="slide-foot"><span>박성문 · Portfolio</span><span class="num">17 / 30</span></div>
+</section></div>
+</div>
+<div class="slide-wrap is-divider" id="s17">
+  <span class="chip">BLUEFOX Section</span>
+  <div class="slide"><section class="section-divider" data-label="BLUEFOX Section">
+  <div>
+    <div class="num">PROJECT · 03</div>
+    <div class="accent-bar"></div>
+  </div>
+  <div class="title-block">
+    <div class="super">성능 테스트 기반 AI 코드 리뷰 프로젝트 · 팀원 · BE (인증 · GitHub 연동)</div>
+    <h2>BLUEFOX</h2>
+    <div class="sub">PR 부하 테스트 + AI 코드리뷰 추천을 묶은,<br>부하 테스트 입문자에게 친화적인 웹 서비스</div>
+  </div>
+  <div class="footer-row"><span>2026.01 – 2026.02 · 6명</span><span>18 / 30</span></div>
+</section></div>
+</div>
+<div class="slide-wrap" id="s18">
+  <span class="chip">BLUEFOX · 개요 &amp; 아키텍처</span>
+  <div class="slide"><section data-label="BLUEFOX · 개요 &amp; 아키텍처" class="pad-snug">
+  <div class="slide-head">
+    <div class="left">
+      <span class="label">BLUEFOX</span>
+      <span class="title">서비스 개요 &amp; 아키텍처</span>
+    </div>
+    <div class="right"><div><b>Period</b> 2026.01 – 02 (4주)</div><div><b>Team</b> 6명</div><div><b>Role</b> BE (인증 · GitHub 연동)</div></div>
+  </div>
+
+  <div class="two image-right" style="grid-template-columns: 1fr 1.4fr; gap: 36px;">
+    <div>
+      <div class="mini-title">기술 선택의 Why</div>
+      <table class="why">
+        <tbody><tr><td class="k">OAuth2 + 내부 JWT</td><td>GitHub Access Token 을 클라이언트에 노출 X → 내부 JWT 로 격리</td></tr>
+        <tr><td class="k">GitHub App + IAT</td><td>사용자 토큰만으로 부족한 Org Repo 접근을 App private key 기반 IAT 로</td></tr>
+        <tr><td class="k">HMAC-SHA256 서명 검증</td><td>Webhook 은 외부 신뢰 X → 서명 검증을 코드 첫 줄에 두어 경계 명확화</td></tr>
+      </tbody></table>
+
+      <div class="mini-title" style="margin-top: 22px;">핵심 스택</div>
+      <div class="kw-row">
+        <span class="kw mine">Spring Boot 4 · Java 17</span>
+        <span class="kw mine">Spring Security OAuth2</span>
+        <span class="kw mine">JWT (JJWT)</span>
+        <span class="kw mine">GitHub REST API</span>
+        <span class="kw mine">GitHub App (JWT + IAT)</span>
+        <span class="kw mine">Webhook (HMAC-SHA256)</span>
+        <span class="kw mine">JPA · MySQL</span>
+        <span class="kw">MongoDB</span>
+        <span class="kw">gRPC · WebRTC</span>
+        <span class="kw">React 19 · Vite · TS</span>
+        <span class="kw">Docker · Jenkins · Nginx</span>
+      </div>
+    </div>
+
+    <div class="img-card" style="height: 750px;">
+      <img src="assets/020c95cb-fc89-4e11-a18b-257ab94e27cb.png" alt="BLUEFOX 시스템 아키텍처">
+    </div>
+  </div>
+
+  <div class="slide-foot"><span>박성문 · Portfolio</span><span class="num">19 / 30</span></div>
+</section></div>
+</div>
+<div class="slide-wrap" id="s19">
+  <span class="chip">BLUEFOX · 화면 &amp; 담당</span>
+  <div class="slide"><section data-label="BLUEFOX · 화면 &amp; 담당" class="pad-snug">
+  <div class="slide-head">
+    <div class="left">
+      <span class="label">BLUEFOX</span>
+      <span class="title">화면 &amp; 내가 담당한 영역</span>
+    </div>
+    <div class="right">메인 / 성능 리포트 대시보드</div>
+  </div>
+
+  <div class="two" style="grid-template-columns: 1.1fr 1fr; gap: 32px;">
+    <div>
+      <div class="img-card dark" style="height: 258px; margin-bottom: 12px;">
+        <img src="assets/49c56594-d591-4443-abdc-6906fb3afa4d.png" alt="BLUEFOX 메인 페이지">
+      </div>
+      <div class="img-card dark" style="height: 258px;">
+        <img src="assets/59d08519-4914-4e35-aa7f-ec8f896186f0.png" alt="BLUEFOX 성능 리포트 대시보드">
+      </div>
+    </div>
+
+    <div>
+      <div class="mini-title">담당 영역</div>
+      <ul class="clean">
+        <li><b>JWT 기반 로그인 / 인증 파트 전체</b> — Spring Security 설정, OAuth Code → AT 교환, JWT 발급/검증 필터, 토큰 만료 대응, 인증 컨텍스트 주입</li>
+        <li><b>PR 상세 / 파일 / 커밋 / 리뷰 / 타임라인 조회 API</b> — GitHub REST API 응답 가공, Record DTO 표준화</li>
+        <li><b>GitHub Webhook 수신 서버</b> — HMAC-SHA256 서명 검증, 이벤트 타입별 라우팅, Repository 자동 동기화</li>
+        <li><b>Organization · Installation 연동</b> — App private key → JWT → IAT 발급 → Org Repo 동기화</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="mini-title" style="margin-top: 14px;">기술 스택</div>
+  <div class="kw-row">
+    <span class="kw mine">Spring Boot 4 · Java 17</span>
+    <span class="kw mine">Spring Security OAuth2</span>
+    <span class="kw mine">JWT (JJWT)</span>
+    <span class="kw mine">JPA</span>
+    <span class="kw mine">MySQL</span>
+    <span class="kw mine">GitHub REST API</span>
+    <span class="kw mine">Webhook (HMAC-SHA256)</span>
+    <span class="kw mine">GitHub App (JWT + IAT)</span>
+    <span class="kw">MongoDB</span>
+    <span class="kw">gRPC · WebRTC</span>
+    <span class="kw">ByteBuddy · WebFlux</span>
+    <span class="kw">React 19 · Vite · TS</span>
+    <span class="kw">Tailwind · Zustand</span>
+    <span class="kw">ECharts · Framer Motion</span>
+    <span class="kw">Socket.io · SSE</span>
+    <span class="kw">Docker · Jenkins · Nginx</span>
+    <span class="kw">AWS EC2 · S3</span>
+  </div>
+
+  <div class="slide-foot"><span>박성문 · Portfolio</span><span class="num">20 / 30</span></div>
+</section></div>
+</div>
+<div class="slide-wrap" id="s20">
+  <span class="chip">BLUEFOX · Trouble 01</span>
+  <div class="slide"><section data-label="BLUEFOX · Trouble 01" class="pad-snug">
+  <div class="slide-head">
+    <div class="left">
+      <span class="label">BLUEFOX · TS 01</span>
+      <span class="title">OAuth → 내부 JWT 발급 흐름</span>
+    </div>
+    <div class="right">외부 GitHub Token 을 서버 내부에 격리</div>
+  </div>
+
+  <div class="two image-right" style="grid-template-columns: 1fr 1.2fr; gap: 40px;">
+    <div>
+      <div class="ts" style="border-left-color: var(--accent);">
+        <h3 style="color: var(--accent);">GitHub Access Token 을 절대 클라이언트에 보내지 않는다</h3>
+        <div class="ts-row"><span class="label" style="border-color:#cdd9ee; color:var(--accent);">문제</span>
+          GitHub OAuth 의 Access Token 을 그대로 클라이언트에 노출하면, <b>외부 토큰이 곧 우리 서비스의 인증</b>이 되어 책임 분리가 안 됨.
+        </div>
+        <div class="ts-row"><span class="label" style="border-color:#cdd9ee; color:var(--accent);">해결</span>
+          Spring Security 가 <span class="mono">code → AT</span> 교환을 받자마자
+          <span class="mono">OAuth2SuccessHandler</span> 에서 <b>내부 JWT (Access + Refresh) 를 발급</b>하고,
+          <b>UUID 키로 TokenCache 에 저장</b>한 뒤 프론트에는 <span class="mono">uuid</span> 만 던져줍니다.
+          프론트는 <span class="mono">GET /token/{uuid}</span> 로 내부 JWT 만 받아가고, GitHub Token 은 서버 내부에서만 사용.
+        </div>
+        <div class="ts-row"><span class="label" style="border-color:#cdd9ee; color:var(--accent);">결과</span>
+          외부(GitHub) 인증과 내부(BLUEFOX) 인증이 책임 단위로 분리.
+          이후 모든 요청은 <b>내부 JWT Bearer</b> 하나만으로 처리되고, 외부 토큰은 서버 내부에 격리됩니다.
+        </div>
+      </div>
+    </div>
+
+    <div class="img-card" style="height: 770px;">
+      <img src="assets/2ebd0c7d-9a6c-46b9-99b9-800b1f23bd02.png" alt="OAuth → 내부 JWT 발급 시퀀스 다이어그램">
+    </div>
+  </div>
+
+  <div class="slide-foot"><span>박성문 · Portfolio</span><span class="num">21 / 30</span></div>
+</section></div>
+</div>
+<div class="slide-wrap" id="s21">
+  <span class="chip">BLUEFOX · Trouble 02</span>
+  <div class="slide"><section data-label="BLUEFOX · Trouble 02" class="pad-snug">
+  <div class="slide-head">
+    <div class="left">
+      <span class="label">BLUEFOX · TS 02</span>
+      <span class="title">GitHub App · Installation Access Token</span>
+    </div>
+    <div class="right">사용자 토큰 만료와 무관한 안정 호출 경로</div>
+  </div>
+
+  <div class="two image-right" style="grid-template-columns: 1fr 1.2fr; gap: 40px;">
+    <div>
+      <div class="ts" style="border-left-color: var(--accent);">
+        <h3 style="color: var(--accent);">Org 단위 Repo 조회 권한 확보 — App private key → JWT → IAT</h3>
+        <div class="ts-row"><span class="label" style="border-color:#cdd9ee; color:var(--accent);">문제</span>
+          사용자 OAuth 토큰만으로는 <b>Org 단위 Repo 조회 권한이 부족</b>하고,
+          사용자 토큰이 만료되면 호출 경로 전체가 끊기는 구조였습니다.
+        </div>
+        <div class="ts-row"><span class="label" style="border-color:#cdd9ee; color:var(--accent);">해결</span>
+          매 호출마다 <b>App private key (RSA) 로 짧은(10분) App JWT 를 생성</b>하고,
+          이걸 Bearer 로 <span class="mono">/app/installations/{id}/access_tokens</span> 에 POST 해
+          <b>Installation Access Token (IAT)</b> 을 받은 뒤 GitHub API 호출에 사용.
+          PR 상세 / 파일 / 커밋 / 리뷰 / 타임라인 모두 같은 패턴 재사용.
+        </div>
+        <div class="ts-row"><span class="label" style="border-color:#cdd9ee; color:var(--accent);">결과</span>
+          사용자 OAuth 토큰의 만료와 무관하게 <b>안정적인 GitHub API 호출 경로</b> 확보.
+          호출 책임이 "사용자가 인증된 컨텍스트" 가 아니라 "GitHub App 자체" 가 되어, 토큰 수명 관리가 단순해짐.
+        </div>
+      </div>
+    </div>
+
+    <div class="img-card" style="height: 770px;">
+      <img src="assets/2f535162-8901-49ad-8fd1-1a6092e78923.png" alt="GitHub App JWT → Installation Access Token 시퀀스">
+    </div>
+  </div>
+
+  <div class="slide-foot"><span>박성문 · Portfolio</span><span class="num">22 / 30</span></div>
+</section></div>
+</div>
+<div class="slide-wrap" id="s22">
+  <span class="chip">BLUEFOX · Trouble 03</span>
+  <div class="slide"><section data-label="BLUEFOX · Trouble 03" class="pad-snug">
+  <div class="slide-head">
+    <div class="left">
+      <span class="label">BLUEFOX · TS 03</span>
+      <span class="title">Webhook HMAC-SHA256 서명 검증</span>
+    </div>
+    <div class="right">외부 신뢰 경계를 코드 첫 줄에서 분리</div>
+  </div>
+
+  <div class="two image-right" style="grid-template-columns: 1.05fr 1fr; gap: 40px;">
+    <div>
+      <div class="ts" style="border-left-color: var(--accent);">
+        <h3 style="color: var(--accent);">서명 검증을 본 흐름 진입 전에 반드시 한 번</h3>
+        <div class="ts-row"><span class="label" style="border-color:#cdd9ee; color:var(--accent);">문제</span>
+          Webhook 은 외부에서 들어오는 <b>신뢰할 수 없는 요청</b>이므로, 본 비즈니스 로직이 시작되기 전에 출처 검증이 반드시 필요합니다.
+          서명 검증이 비즈니스 코드 안에 섞이면 누락 가능성이 늘어남.
+        </div>
+        <div class="ts-row"><span class="label" style="border-color:#cdd9ee; color:var(--accent);">해결</span>
+          <span class="mono">WebhookVerifyService</span> 에서 <b>HmacSHA256(webhookSecret) 으로 expected 를 계산</b>하고,
+          <span class="mono">X-Hub-Signature-256</span> 헤더의 <span class="mono">sha256=...</span> 과 비교.
+          <b>불일치 시 즉시 400 차단</b>, 일치하면 <span class="mono">WebhookEventService.handleEvent()</span> 가
+          <span class="mono">X-GitHub-Event</span> 타입(pull_request / installation / push)으로 라우팅.
+        </div>
+        <div class="ts-row"><span class="label" style="border-color:#cdd9ee; color:var(--accent);">결과</span>
+          외부 신뢰 경계가 코드의 <b>첫 분기</b>에서 끝남.
+          이후 핸들러는 "검증된 GitHub 이벤트" 라는 가정 위에서만 동작 → 비즈니스 로직이 보안 책임을 떠안지 않음.
+        </div>
+      </div>
+    </div>
+
+    <div class="img-card" style="height: 770px;">
+      <img src="assets/20fd15d5-ee5a-4cc3-bfa2-019a00238b1e.png" alt="Webhook HMAC-SHA256 검증 플로우차트">
+    </div>
+  </div>
+
+  <div class="slide-foot"><span>박성문 · Portfolio</span><span class="num">23 / 30</span></div>
+</section></div>
+</div>
+<div class="slide-wrap is-divider" id="s23">
+  <span class="chip">Newstagram Section</span>
+  <div class="slide"><section class="section-divider" data-label="Newstagram Section">
+  <div>
+    <div class="num">PROJECT · 04</div>
+    <div class="accent-bar"></div>
+  </div>
+  <div class="title-block">
+    <div class="super">지능형 뉴스 추천 프로젝트 · 팀원 · BE (Kafka / 추천)</div>
+    <h2>Newstagram</h2>
+    <div class="sub">사용자 활동 로그를 분석해 RSS 뉴스 피드를 선별하고,<br>개인화된 기사를 추천하는 지능형 뉴스 서비스</div>
+  </div>
+  <div class="footer-row"><span>2025.11 – 2025.12 · 5명</span><span>24 / 30</span></div>
+</section></div>
+</div>
+<div class="slide-wrap" id="s24">
+  <span class="chip">Newstagram · 개요 &amp; 아키텍처</span>
+  <div class="slide"><section data-label="Newstagram · 개요 &amp; 아키텍처" class="pad-snug">
+  <div class="slide-head">
+    <div class="left">
+      <span class="label">NEWSTAGRAM</span>
+      <span class="title">서비스 개요 &amp; 아키텍처</span>
+    </div>
+    <div class="right"><div><b>Period</b> 2025.11 – 12 (4주)</div><div><b>Team</b> 5명</div><div><b>Role</b> BE (Kafka / 추천)</div></div>
+  </div>
+
+  <div class="two image-right" style="grid-template-columns: 1fr 1.1fr; gap: 36px;">
+    <div>
+      <div class="mini-title">기술 선택의 Why</div>
+      <table class="why">
+        <tbody><tr><td class="k">Apache Kafka (KRaft)</td><td>추천 벡터 계산을 사용자 응답 경로에서 분리, 실패 메시지는 DLT 보존</td></tr>
+        <tr><td class="k">Spring AOP + Annotation</td><td>로깅이 본 비즈니스 로직에 침투 X — <span class="mono">@LogArticleClick</span> 으로 가로채기</td></tr>
+        <tr><td class="k">PostgreSQL + pgvector</td><td>벡터 저장소를 별도 운영하지 않고 Postgres 단일화 → 컴포넌트 1개 감축</td></tr>
+        <tr><td class="k">JPA AttributeConverter</td><td>Postgres 배열 ↔ <span class="mono">Double[]</span> 매핑을 JPA 표준 안에서 자동 처리</td></tr>
+      </tbody></table>
+
+      <div class="mini-title" style="margin-top: 22px;">핵심 스택</div>
+      <div class="kw-row">
+        <span class="kw mine">Spring Boot 3.5 · Java 17</span>
+        <span class="kw mine">Spring AOP</span>
+        <span class="kw mine">Spring Security + JWT</span>
+        <span class="kw mine">Kafka (Producer / Consumer / DLT)</span>
+        <span class="kw mine">PostgreSQL + pgvector</span>
+        <span class="kw mine">AttributeConverter</span>
+        <span class="kw">Vue 3 (FE)</span>
+        <span class="kw">Komoran · Rome RSS</span>
+        <span class="kw">Docker Compose</span>
+      </div>
+    </div>
+
+    <div class="img-card" style="height: 750px;">
+      <img src="assets/2cff72cb-769a-4395-859c-f6388230d08a.png" alt="Newstagram 시스템 아키텍처">
+    </div>
+  </div>
+
+  <div class="slide-foot"><span>박성문 · Portfolio</span><span class="num">25 / 30</span></div>
+</section></div>
+</div>
+<div class="slide-wrap" id="s25">
+  <span class="chip">Newstagram · 담당 영역</span>
+  <div class="slide"><section data-label="Newstagram · 담당 영역" class="pad-snug">
+  <div class="slide-head">
+    <div class="left">
+      <span class="label">NEWSTAGRAM</span>
+      <span class="title">내가 담당한 영역</span>
+    </div>
+    <div class="right">Kafka 파이프라인 · 추천 벡터</div>
+  </div>
+
+  <div class="mini-title">담당 영역 (BE)</div>
+  <ul class="clean">
+    <li><b>Kafka 이벤트 파이프라인</b> — 커스텀 어노테이션 + AOP 로 GET 요청 인터셉트, Producer · Consumer · DLT 리스너 직접 구현</li>
+    <li><b>사용자 임베딩 벡터 갱신</b> — 클릭 로그 가중 평균 → pgvector 저장</li>
+    <li><b>신규 가입자 초기 관심사 부트스트랩</b> — 설문 → 임베딩 API → 초기 벡터</li>
+    <li><b>JPA Type Converter</b> — Postgres 배열 ↔ Java Double[] 양방향 매핑</li>
+    <li><b>코드 품질</b> — 패키지 구조 재편 / 매직 스트링 → 상수 클래스 / 중복 로직 정리</li>
+  </ul>
+
+  <div class="mini-title" style="margin-top: 30px;">기술 스택</div>
+  <div class="kw-row">
+    <span class="kw mine">Spring Boot 3.5</span>
+    <span class="kw mine">Java 17</span>
+    <span class="kw mine">Spring AOP</span>
+    <span class="kw mine">Spring Security + JWT</span>
+    <span class="kw mine">JPA</span>
+    <span class="kw mine">Kafka Producer · Consumer · DLT</span>
+    <span class="kw mine">PostgreSQL + pgvector</span>
+    <span class="kw mine">AttributeConverter</span>
+    <span class="kw mine">Custom Annotation</span>
+    <span class="kw">Spring Cloud</span>
+    <span class="kw">MyBatis</span>
+    <span class="kw">Spring Batch · Quartz</span>
+    <span class="kw">Redis</span>
+    <span class="kw">OpenFeign · WebFlux</span>
+    <span class="kw">Komoran · Rome RSS · Smile</span>
+    <span class="kw">Docker Compose</span>
+    <span class="kw">Vue 3 (FE)</span>
+  </div>
+
+  <div class="slide-foot"><span>박성문 · Portfolio</span><span class="num">26 / 30</span></div>
+</section></div>
+</div>
+<div class="slide-wrap" id="s26">
+  <span class="chip">Newstagram · Trouble 01</span>
+  <div class="slide"><section data-label="Newstagram · Trouble 01" class="pad-snug">
+  <div class="slide-head">
+    <div class="left">
+      <span class="label">NEWSTAGRAM · TS 01</span>
+      <span class="title">Kafka 비동기 파이프라인 + DLT</span>
+    </div>
+    <div class="right">사용자 응답과 추천 계산의 책임 분리</div>
+  </div>
+
+  <div class="two image-right" style="grid-template-columns: 1.1fr 1fr; gap: 40px;">
+    <div>
+      <div class="ts" style="border-left-color: var(--accent);">
+        <h3 style="color: var(--accent);">사용자 응답 경로에서 추천 계산을 떼어내고, 실패는 잃지 않기</h3>
+        <div class="ts-row"><span class="label" style="border-color:#cdd9ee; color:var(--accent);">문제</span>
+          사용자가 기사를 클릭하는 순간 추천 벡터를 갱신해야 하지만, 그 계산이 응답 시간에 끼면 API 가 무거워짐.
+          또한 갱신이 실패해도 사용자 흐름은 끊기면 안 되고, 동시에 <b>실패 메시지를 잃어서도 안 되는</b> 요구.
+        </div>
+        <div class="ts-row"><span class="label" style="border-color:#cdd9ee; color:var(--accent);">해결</span>
+          <span class="mono">@CollectLog</span> 어노테이션 + AOP 로 GET 요청을 가로채
+          <span class="mono">log-interaction</span> 토픽으로 비동기 발행. Logging Server 의 컨슈머가 처리,
+          <b>실패 시 5회 / 30초 간격 재시도</b> 후 모두 실패하면 <span class="mono">log-interaction.DLT</span> 로 옮기고
+          <span class="mono">DeadLetterEventListener</span> 가 실패 로그를 영구 기록.
+        </div>
+        <div class="ts-row"><span class="label" style="border-color:#cdd9ee; color:var(--accent);">결과</span>
+          API 서버는 클릭 응답만 책임, 추천 갱신은 Logging Server 가 책임.
+          실패 메시지는 DLT 로 안전 보존, 본 흐름은 절대 막지 않는 구조 완성.
+        </div>
+      </div>
+    </div>
+
+    <div class="img-card" style="height: 770px;">
+      <img src="assets/5f320952-e918-4f9f-9f9b-275052f24e33.png" alt="Kafka log-interaction 파이프라인 — Producer/Consumer/DLT">
+    </div>
+  </div>
+
+  <div class="slide-foot"><span>박성문 · Portfolio</span><span class="num">27 / 30</span></div>
+</section></div>
+</div>
+<div class="slide-wrap" id="s27">
+  <span class="chip">Newstagram · Trouble 02</span>
+  <div class="slide"><section data-label="Newstagram · Trouble 02" class="pad-snug">
+  <div class="slide-head">
+    <div class="left">
+      <span class="label">NEWSTAGRAM · TS 02</span>
+      <span class="title">AOP 횡단 관심사 — Custom Annotation</span>
+    </div>
+    <div class="right">비즈니스 코드는 한 줄도 건드리지 않는 로깅</div>
+  </div>
+
+  <div class="two image-right" style="grid-template-columns: 1.1fr 1fr; gap: 40px;">
+    <div>
+      <div class="ts" style="border-left-color: var(--accent);">
+        <h3 style="color: var(--accent);">로깅 코드가 비즈니스 로직에 침투하지 않게</h3>
+        <div class="ts-row"><span class="label" style="border-color:#cdd9ee; color:var(--accent);">문제</span>
+          기사 조회 API 가 동작과 동시에 사용자 클릭 로그를 남겨야 하는 요구사항.
+          이 로직을 Controller 안에 넣으면 모든 조회 API 가 로깅 책임을 떠안게 됨.
+        </div>
+        <div class="ts-row"><span class="label" style="border-color:#cdd9ee; color:var(--accent);">해결</span>
+          <span class="mono">@CollectLog</span> 커스텀 어노테이션을 만들고
+          <span class="mono">ClickTrackingAspect</span> 가 <span class="mono">@Around</span> 로 가로채
+          SecurityContext / HttpServletRequest 에서 userId · sessionId · UA · IP 를 수집,
+          <span class="mono">UserInteractionLogsDto</span> 를 빌드해 <b>Kafka 로 비동기 발행</b>.
+          그 다음 <span class="mono">joinPoint.proceed()</span> 로 원본 메서드 실행.
+        </div>
+        <div class="ts-row"><span class="label" style="border-color:#cdd9ee; color:var(--accent);">결과</span>
+          비즈니스 코드는 한 줄도 건드리지 않은 채 로깅이 횡단 관심사로 분리.
+          Controller 메서드에 <span class="mono">@CollectLog</span> 한 줄만 추가하면 끝.
+        </div>
+      </div>
+    </div>
+
+    <div class="img-card" style="height: 770px;">
+      <img src="assets/69a84f47-0b09-4cb3-af8d-556664d22c03.png" alt="ClickTrackingAspect — Custom Annotation + AOP 시퀀스">
+    </div>
+  </div>
+
+  <div class="slide-foot"><span>박성문 · Portfolio</span><span class="num">28 / 30</span></div>
+</section></div>
+</div>
+<div class="slide-wrap" id="s28">
+  <span class="chip">Newstagram · Trouble 03</span>
+  <div class="slide"><section data-label="Newstagram · Trouble 03" class="pad-snug">
+  <div class="slide-head">
+    <div class="left">
+      <span class="label">NEWSTAGRAM · TS 03</span>
+      <span class="title">사용자 임베딩 NULL 사고</span>
+    </div>
+    <div class="right">저장과 조회 사이의 진짜 책임 지점 찾기</div>
+  </div>
+
+  <div class="two image-right" style="grid-template-columns: 1.1fr 1fr; gap: 40px;">
+    <div>
+      <div class="ts">
+        <h3>"저장은 됐는데 조회가 NULL"</h3>
+        <div class="ts-row"><span class="label">문제</span>
+          설문 후 사용자 임베딩을 분명히 저장했는데, 로그인 시점의 조회 결과가 매번 NULL.
+          저장 SQL 은 정상이었고 DB 에도 값이 들어가 있었음.
+          <em>저장과 조회 사이의 어디에선가 타입이 깨지고 있다</em>는 가설로 추적 시작.
+        </div>
+        <div class="ts-row"><span class="label">해결</span>
+          Postgres 의 배열 리터럴 <span class="mono">{0.1, 0.2, ...}</span> 과 Java <span class="mono">List&lt;Double&gt;</span>
+          사이의 매핑을 JPA 가 모르고 있다는 것이 진짜 원인.
+          <span class="mono">DoubleListConverter</span> AttributeConverter 를 작성해
+          <b>ObjectMapper 직렬화 / 역직렬화 책임</b>을 컨버터에 위임, 엔티티에 <span class="mono">@Convert</span> 적용.
+        </div>
+        <div class="ts-row"><span class="label">결과</span>
+          임베딩 조회 정상화. 같은 패턴이 필요한 <b>다른 컬럼에도 컨버터를 그대로 재사용</b>.
+          외부 라이브러리(Hibernate Types) 도입 없이 JPA 표준 안에서 해결.
+        </div>
+        <div style="margin-top: 16px; padding: 14px 18px; background: #fff5f3; border-radius: 6px; font-size: 24px; color: #8a5040; line-height: 1.55;">
+          세 가지 안(String 수동 파싱 / 외부 라이브러리 / AttributeConverter) 중 "도메인 코드가 그대로 유지되며 다른 컬럼에도 재사용 가능" 을 기준으로 선택한 사건.
+        </div>
+      </div>
+    </div>
+
+    <div class="img-card" style="height: 770px;">
+      <img src="assets/49f5e9a2-417c-4687-bca5-227b8e155b4d.png" alt="Before/After — AttributeConverter 책임 위임">
+    </div>
+  </div>
+
+  <div class="slide-foot"><span>박성문 · Portfolio</span><span class="num">29 / 30</span></div>
+</section></div>
+</div>
+<div class="slide-wrap" id="s29">
+  <span class="chip">Closing</span>
+  <div class="slide"><section data-label="Closing">
+  <div class="slide-head">
+    <div class="left">
+      <span class="label">06</span>
+      <span class="title">Closing</span>
+    </div>
+    <div class="right">최근 학습 &amp; 관심 영역</div>
+  </div>
+
+  <div class="two" style="grid-template-columns: 1fr 1.2fr; gap: 48px;">
+    <div>
+      <div class="mini-title">최근 학습 중</div>
+      <div class="card" style="padding: 18px 24px;">
+        <div class="bait">
+          <div class="row">
+            <div class="when">[ 2026.04 ~ ]</div>
+            <div class="what"><b>부하 테스트</b> — k6 / JMeter 로 직접 부하를 걸어보면서 TPS · 응답 지연 · 병목 지점을 그래프 위에서 읽어내는 방법.</div>
+          </div>
+          <div class="row">
+            <div class="when">[ 2026.04 ~ ]</div>
+            <div class="what"><b>통합 테스트 환경</b> — Testcontainers · @SpringBootTest · 테스트 프로파일 분리로 실제 DB / Kafka 위에서 검증.</div>
+          </div>
+          <div class="row">
+            <div class="when">[ 2026.04 ~ ]</div>
+            <div class="what"><b>테스트 코드 작성</b> — JUnit · Mockito · AssertJ 로 단위 / 슬라이스 / 통합 테스트 책임 분리.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="mini-title">관심 있는 영역</div>
+      <div class="closing-grid">
+        <div class="card" style="padding: 14px 18px;"><h4 style="color: var(--accent); font-size: 24px;">분산 DB</h4>
+          <p style="font-size: 24px; line-height:1.5;">샤딩 / 복제 / 일관성 모델 — 데이터가 여러 노드에 흩어졌을 때의 트레이드오프를 직접 다뤄보기.</p>
+        </div>
+        <div class="card" style="padding: 14px 18px;"><h4 style="color: var(--accent); font-size: 24px;">무중단 배포</h4>
+          <p style="font-size: 24px; line-height:1.5;">Blue/Green · Canary · Rolling 등 다운타임 없는 배포 전략을 단일 EC2 너머에서.</p>
+        </div>
+        <div class="card" style="padding: 14px 18px;"><h4 style="color: var(--accent); font-size: 24px;">로드 밸런싱</h4>
+          <p style="font-size: 24px; line-height:1.5;">Nginx 단일 프록시 너머 L4/L7 분산과 헬스체크 · 세션 어피니티 설계.</p>
+        </div>
+        <div class="card" style="padding: 14px 18px;"><h4 style="color: var(--accent); font-size: 24px;">실시간 스트리밍</h4>
+          <p style="font-size: 24px; line-height:1.5;">Kafka Streams · Flink 로 흐르는 데이터 위 집계 · 윈도우 연산.</p>
+        </div>
+        <div class="card" style="padding: 14px 18px;"><h4 style="color: var(--accent); font-size: 24px;">대용량 데이터 처리</h4>
+          <p style="font-size: 24px; line-height:1.5;">RSS 수집을 넘어, 사용자 행위에서 발생하는 실시간 대용량 트래픽 처리.</p>
+        </div>
+        <div class="card" style="padding: 14px 18px;"><h4 style="color: var(--accent); font-size: 24px;">오픈소스 기여</h4>
+          <p style="font-size: 24px; line-height:1.5;">사용자에서 기여자로 — 이슈 → PR 머지 → Committer 권한이 중기 목표.</p>
+        </div>
+      </div>
+
+      <div style="margin-top: 48px; text-align: center;">
+        <div style="font-size: 32px; color: var(--muted); letter-spacing: .15em; text-transform: uppercase; font-weight: 500;">Thank you for reading.</div>
+        <div style="margin-top: 18px; font-family: 'JetBrains Mono', monospace; font-size: 24px; color: var(--ink);">Email <span style="color: var(--accent);">dev_codelian@naver.com</span> &nbsp;·&nbsp; GitHub <span style="color: var(--accent);">github.com/psmoon7304</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-foot"><span>박성문 · Portfolio</span><span class="num">30 / 30</span></div>
+</section></div>
+</div>
+</main>
+
+<footer class="site-foot">
+  <div class="ft-name">박성문</div>
+  <p style="margin-top:12px;font-size:14px;">
+    <a href="%EB%B0%95%EC%84%B1%EB%AC%B8%20Portfolio.html" target="_blank" rel="noopener">▶ PPT 슬라이드 모드로 보기</a>
+  </p>
+  <p style="margin-top:6px;font-size:13px;color:#5f6b80;">발표용 덱을 웹사이트로 재구성</p>
+</footer>
+
+<button class="to-top" aria-label="top">↑</button>
+<script>
+
+const root=document.documentElement, deck=document.querySelector('.deck');
+function rescale(){ const w=deck.querySelector('.slide-wrap'); if(!w)return;
+  root.style.setProperty('--slide-scale',(w.clientWidth/1920).toString()); }
+new ResizeObserver(rescale).observe(deck); addEventListener('load',rescale); rescale();
+const prog=document.querySelector('.scroll-progress'), toTop=document.querySelector('.to-top');
+function onScroll(){ const h=document.documentElement.scrollHeight-innerHeight;
+  prog.style.width=(h>0?(scrollY/h*100):0)+'%'; toTop.classList.toggle('show',scrollY>600); }
+addEventListener('scroll',onScroll,{passive:true}); onScroll();
+toTop.onclick=()=>scrollTo({top:0,behavior:'smooth'});
+document.querySelector('.brand').onclick=()=>scrollTo({top:0,behavior:'smooth'});
+const burger=document.querySelector('.nav-burger'), links=document.querySelector('.nav-links');
+burger.onclick=()=>links.classList.toggle('open');
+links.querySelectorAll('.nav-link').forEach(a=>a.addEventListener('click',()=>links.classList.remove('open')));
+const spy={"0": 0, "1": 1, "2": 2, "3": 3, "4": 4, "5": 5, "6": 5, "7": 5, "8": 5, "9": 5, "10": 5, "11": 5, "12": 5, "13": 5, "14": 5, "15": 5, "16": 5, "17": 5, "18": 5, "19": 5, "20": 5, "21": 5, "22": 5, "23": 5, "24": 5, "25": 5, "26": 5, "27": 5, "28": 5, "29": 29}, byT={};
+document.querySelectorAll('.nav-link[data-target]').forEach(a=>{(byT[a.dataset.target]=byT[a.dataset.target]||[]).push(a);});
+function setActive(t){ document.querySelectorAll('.nav-link.active').forEach(a=>a.classList.remove('active'));
+  (byT[t]||[]).forEach(a=>a.classList.add('active')); }
+const io=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){
+  const idx=parseInt(e.target.id.slice(1),10); if(spy[idx]!=null) setActive('s'+spy[idx]); }}),
+  {rootMargin:'-45% 0px -50% 0px',threshold:0});
+document.querySelectorAll('.slide-wrap').forEach(s=>io.observe(s));
+
+</script>
+</body>
+</html>
